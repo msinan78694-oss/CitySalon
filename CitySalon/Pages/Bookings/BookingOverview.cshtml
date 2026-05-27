@@ -1,0 +1,392 @@
+﻿@page
+@model CitySalon.Pages.Bookings.BookingOverviewModel
+@using CitySalon.Helpers
+
+@{
+    ViewData["Title"] = "Bookinger";
+}
+
+<link rel="stylesheet" href="~/css/booking.css" />
+
+<div class="bookings-page">
+
+    <div class="bookings-header">
+        <h1>Bookinger</h1>
+    </div>
+
+    <form method="get" class="booking-search-form">
+
+        <input type="text"
+               name="SearchTerm"
+               value="@Model.SearchTerm"
+               placeholder="Søg kunde efter navn, telefon eller email" />
+
+        <button type="submit">
+            Søg
+        </button>
+
+        @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+        {
+            <a asp-page="/Bookings/BookingOverview">
+                Ryd
+            </a>
+        }
+
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+    {
+        <div class="booking-search-results">
+
+            <h2>
+                Resultater for "@Model.SearchTerm"
+            </h2>
+
+            @if (!Model.SearchResults.Any())
+            {
+                <p>
+                    Ingen bookinger fundet for denne kunde.
+                </p>
+            }
+            else
+            {
+                <div class="bookings-table-wrapper search-table-wrapper">
+
+                    <table class="bookings-table">
+
+                        <thead>
+                            <tr>
+                                <th>Kunde</th>
+                                <th>Telefon</th>
+                                <th>Email</th>
+                                <th>Behandling</th>
+                                <th>Medarbejder</th>
+                                <th>Dato</th>
+                                <th>Tid</th>
+                                <th>Status</th>
+                                <th>Handlinger</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var booking in Model.SearchResults)
+                            {
+                                <tr>
+                                    <td>@booking.Customer?.Name</td>
+                                    <td>@booking.Customer?.Phone</td>
+                                    <td>@booking.Customer?.Email</td>
+                                    <td>@booking.Treatment?.Name</td>
+                                    <td>@booking.Employee?.Name</td>
+
+                                    <td>
+                                        @booking.StartTime.ToString("dd-MM-yyyy")
+                                    </td>
+
+                                    <td>
+                                        @booking.StartTime.ToString("HH:mm")
+                                        -
+                                        @booking.EndTime.ToString("HH:mm")
+                                    </td>
+
+                                    <td>
+                                        <span class="booking-status @GetStatusClass(booking.Status)">
+                                            @GetStatusText(booking.Status)
+                                        </span>
+                                    </td>
+
+                                    <td class="booking-actions icon-actions">
+
+                                        <a asp-page="/Bookings/EditBooking"
+                                           asp-route-id="@booking.BookingId"
+                                           class="booking-icon-btn booking-edit-icon"
+                                           title="Rediger booking">
+                                            <span>✎</span>
+                                        </a>
+
+                                        @if (SessionHelper.IsAdmin(HttpContext))
+                                        {
+                                            <a asp-page="/Bookings/DeleteBooking"
+                                               asp-route-id="@booking.BookingId"
+                                               class="booking-icon-btn booking-delete-icon"
+                                               title="Slet booking">
+                                                <span>🗑</span>
+                                            </a>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+    }
+
+    <div class="calendar-times-layout">
+
+        <div class="admin-calendar-card">
+
+            <div class="calendar-header">
+
+                <a asp-page="/Bookings/BookingOverview"
+                   asp-route-SelectedDate="@Model.SelectedDate.AddMonths(-1).ToString("yyyy-MM-dd")"
+                   asp-route-SelectedEmployeeId="@Model.SelectedEmployeeId"
+                   asp-route-SearchTerm="@Model.SearchTerm">
+                    ←
+                </a>
+
+                <h2>
+                    @Model.SelectedDate.ToString("MMMM yyyy")
+                </h2>
+
+                <a asp-page="/Bookings/BookingOverview"
+                   asp-route-SelectedDate="@Model.SelectedDate.AddMonths(1).ToString("yyyy-MM-dd")"
+                   asp-route-SelectedEmployeeId="@Model.SelectedEmployeeId"
+                   asp-route-SearchTerm="@Model.SearchTerm">
+                    →
+                </a>
+
+            </div>
+
+            <div class="calendar-weekdays">
+                <span>Ma</span>
+                <span>Ti</span>
+                <span>On</span>
+                <span>To</span>
+                <span>Fr</span>
+                <span>Lø</span>
+                <span>Sø</span>
+            </div>
+
+            <div class="calendar-grid">
+
+                @for (int i = 0; i < Model.FirstDayOffset; i++)
+                {
+                    <div></div>
+                }
+
+                @for (int day = 1; day <= Model.DaysInMonth; day++)
+                {
+                    var date = new DateTime(
+                    Model.SelectedDate.Year,
+                    Model.SelectedDate.Month,
+                    day);
+
+                    var activeClass =
+                    date.Date == Model.SelectedDate.Date
+                    ? "active-day"
+                    : "";
+
+                    <a class="calendar-day @activeClass"
+                       asp-page="/Bookings/BookingOverview"
+                       asp-route-SelectedDate="@date.ToString("yyyy-MM-dd")"
+                       asp-route-SelectedEmployeeId="@Model.SelectedEmployeeId"
+                       asp-route-SearchTerm="@Model.SearchTerm">
+                        @day
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+        <div class="available-times-card">
+
+            <h2>Ledige tider</h2>
+
+            <p class="selected-date-text">
+                @Model.SelectedDate.ToString("dddd d. MMMM yyyy")
+            </p>
+
+            <form method="get" class="employee-filter-form">
+
+                <input type="hidden"
+                       name="SelectedDate"
+                       value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+
+                <input type="hidden"
+                       name="SearchTerm"
+                       value="@Model.SearchTerm" />
+
+                <label>Medarbejder</label>
+
+                <select name="SelectedEmployeeId"
+                        onchange="this.form.submit()">
+
+                    <option value="0"
+                            selected="@(Model.SelectedEmployeeId == 0)">
+                        Vælg medarbejder
+                    </option>
+
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <option value="@employee.Id"
+                                selected="@(employee.Id == Model.SelectedEmployeeId)">
+                            @employee.Name
+                        </option>
+                    }
+
+                </select>
+
+            </form>
+
+            @if (Model.SelectedEmployeeId == 0)
+            {
+                <p class="selected-date-text">
+                    Vælg en medarbejder for at se ledige tider.
+                </p>
+            }
+            else
+            {
+                <div class="times-list">
+
+                    @foreach (var time in Model.AvailableTimes)
+                    {
+                        <a class="time-badge"
+                           asp-page="/Bookings/CreateBooking"
+                           asp-route-SelectedDate="@Model.SelectedDate.ToString("yyyy-MM-dd")"
+                           asp-route-SelectedTime="@time"
+                           asp-route-EmployeeId="@Model.SelectedEmployeeId">
+                            @time
+                        </a>
+                    }
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+    <div class="bookings-table-wrapper">
+
+       
+
+        @if (Model.SelectedEmployeeId == 0)
+        {
+            <p>
+                Vælg en medarbejder for at se bookede tider.
+            </p>
+        }
+        else if (!Model.Bookings.Any())
+        {
+            <p>
+                Der er ingen bookinger for denne dag og medarbejder.
+            </p>
+        }
+        else
+        {
+            <table class="bookings-table">
+
+                <thead>
+                    <tr>
+                        <th>Kunde</th>
+                        <th>Behandling</th>
+                        <th>Medarbejder</th>
+                        <th>Dato</th>
+                        <th>Tid</th>
+                        <th>Status</th>
+                        <th>Handlinger</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <tr>
+
+                            <td>
+                                @booking.Customer?.Name
+                            </td>
+
+                            <td>
+                                @booking.Treatment?.Name
+                            </td>
+
+                            <td>
+                                @booking.Employee?.Name
+                            </td>
+
+                            <td>
+                                @booking.StartTime.ToString("dd-MM-yyyy")
+                            </td>
+
+                            <td>
+                                @booking.StartTime.ToString("HH:mm")
+                                -
+                                @booking.EndTime.ToString("HH:mm")
+                            </td>
+
+                            <td>
+
+                                <span class="booking-status @GetStatusClass(booking.Status)">
+
+                                    @GetStatusText(booking.Status)
+
+                                </span>
+
+                            </td>
+
+                            <td class="booking-actions icon-actions">
+
+                                <a asp-page="/Bookings/EditBooking"
+                                   asp-route-id="@booking.BookingId"
+                                   class="booking-icon-btn booking-edit-icon"
+                                   title="Rediger booking">
+
+                                    <span>✎</span>
+
+                                </a>
+
+                                @if (SessionHelper.IsAdmin(HttpContext))
+                                {
+                                    <a asp-page="/Bookings/DeleteBooking"
+                                       asp-route-id="@booking.BookingId"
+                                       class="booking-icon-btn booking-delete-icon"
+                                       title="Slet booking">
+
+                                        <span>🗑</span>
+
+                                    </a>
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+
+    </div>
+
+</div>
+
+@functions {
+
+    private string GetStatusText(string status)
+    {
+        if (status == "Pending") return "Afventer";
+        if (status == "Confirmed") return "Bekræftet";
+        if (status == "Cancelled") return "Annulleret";
+        if (status == "Completed") return "Færdig";
+
+        return status;
+    }
+
+    private string GetStatusClass(string status)
+    {
+        if (status == "Pending") return "status-pending";
+        if (status == "Confirmed") return "status-confirmed";
+        if (status == "Cancelled") return "status-cancelled";
+        if (status == "Completed") return "status-completed";
+
+        return "status-pending";
+    }
+}

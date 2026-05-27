@@ -1,0 +1,93 @@
+﻿html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.city-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 85px;
+    padding: 0 50px;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.nav-left {
+    justify-content: flex-end;
+    padding-right: 50px;
+}
+
+.nav-right {
+    justify-content: flex-start;
+    padding-left: 50px;
+}
+
+.nav-brand {
+    text-align: center;
+    white-space: nowrap;
+}
+
+    .nav-brand a {
+        color: white;
+        text-decoration: none;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+    }
+
+.city-navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+    .city-navbar a:hover {
+        color: #c89b5f;
+    }
+
+main {
+    padding-top: 85px;
+}
+
+@media (max-width: 950px) {
+    .city-navbar {
+        height: auto;
+        padding: 20px;
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .nav-brand {
+        order: -1;
+    }
+
+    .nav-left,
+    .nav-right {
+        justify-content: center;
+        padding: 0;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    main {
+        padding-top: 190px;
+    }
+}

@@ -1,0 +1,88 @@
+﻿@page
+@model CitySalon.Pages.Admin.Products.GetAllProductsModel
+
+<link rel="stylesheet" href="~/css/product.css" asp-append-version="true" />
+
+<div class="product-admin-page">
+
+    <div class="product-admin-header">
+
+        <h1 class="product-admin-title">
+            Administrer produkter
+        </h1>
+
+
+        <!-- Link til oprettelse af nyt produkt -->
+        <a asp-page="/Admin/Products/CreateProduct"
+           class="product-add-button">
+            Tilføj produkt
+        </a>
+
+    </div>
+
+    <!-- Grid som viser alle produkter -->
+    <div class="product-card-grid">
+
+        <!-- Gennemgår alle produkter fra PageModel -->
+        @foreach (var product in Model.Products)
+        {
+            <div class="product-admin-card">
+
+                <!-- Produktbillede fra wwwroot/images -->
+                <img src="~/images/@product.ImageUrl"
+                     class="product-admin-image"
+                     alt="@product.Name" />
+
+                <div class="product-admin-card-content">
+
+                    <h2 class="product-admin-name">
+                        @product.Name
+                    </h2>
+
+                    <p class="product-admin-price">
+
+                        <!-- Formatterer prisen -->
+                        @product.Price.ToString("0.00") kr.
+
+                    </p>
+
+                    <div class="product-admin-info">
+
+                        <p>
+                            <strong>Type:</strong>
+                            @product.Type
+                        </p>
+
+                        <p>
+                            <strong>Brand:</strong>
+                            @product.Brand
+                        </p>
+
+                    </div>
+
+                    <div class="product-admin-actions">
+
+                        <!-- Sender produktets id til redigeringssiden -->
+                        <a asp-page="/Admin/Products/EditProduct"
+                           asp-route-id="@product.ProductId"
+                           class="product-edit-button">
+                            Rediger
+                        </a>
+
+                        <!-- Sender produktets id til slette-siden -->
+                        <a asp-page="/Admin/Products/DeleteProduct"
+                           asp-route-id="@product.ProductId"
+                           class="product-delete-button">
+                            Slet
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,514 @@
+﻿/* ADMIN TREATMENTS */
+
+.treatment-admin-page,
+.create-treatment-page,
+.edit-treatment-page,
+.delete-treatment-page,
+.getall-treatments-page {
+    background: #f4efe8;
+}
+
+.treatment-admin-page {
+    min-height: calc(100vh - 85px);
+    padding: 70px 48px;
+}
+
+.treatment-admin-header,
+.treatment-table-card {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.treatment-admin-header {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+    .treatment-admin-header h1 {
+        margin: 0;
+        color: #2b2b2b;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+.treatment-add-btn {
+    height: 56px;
+    padding: 0 24px;
+    border-radius: 12px;
+    background: #8b5e34;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .treatment-add-btn:hover {
+        background: #6f4728;
+        color: white;
+    }
+
+.treatment-table-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+}
+
+.treatment-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+    .treatment-table th {
+        background: #111;
+        color: #c89b5f;
+        padding: 20px;
+        text-align: left;
+        font-size: 15px;
+    }
+
+    .treatment-table td {
+        padding: 22px 20px;
+        border-bottom: 1px solid #eee;
+        color: #2b2b2b;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    .treatment-table tbody tr:hover {
+        background: #f4efe8;
+    }
+
+    .treatment-table th:nth-child(1),
+    .treatment-table td:nth-child(1) {
+        width: 38%;
+    }
+
+    .treatment-table th:nth-child(2),
+    .treatment-table td:nth-child(2),
+    .treatment-table th:nth-child(3),
+    .treatment-table td:nth-child(3) {
+        width: 16%;
+    }
+
+    .treatment-table th:nth-child(4),
+    .treatment-table td:nth-child(4) {
+        width: 30%;
+    }
+
+/* ACTION ICONS */
+
+.treatment-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.treatment-icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 19px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.treatment-edit-icon {
+    background: #f1e5d3;
+    color: #7a5526;
+}
+
+    .treatment-edit-icon:hover {
+        background: #dcc3a2;
+        color: #7a5526;
+    }
+
+.treatment-delete-icon {
+    background: #f8dddd;
+    color: #a33a3a;
+}
+
+    .treatment-delete-icon:hover {
+        background: #e9bcbc;
+        color: #a33a3a;
+    }
+
+.treatment-icon-btn span {
+    line-height: 1;
+}
+
+/* TREATMENT FORM PAGES */
+
+.create-treatment-page,
+.edit-treatment-page,
+.delete-treatment-page {
+    min-height: calc(100vh - 120px);
+    padding: 120px 20px 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-treatment-card,
+.edit-treatment-card,
+.delete-treatment-card {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.create-treatment-title,
+.edit-treatment-title,
+.delete-treatment-title {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #2b2b2b;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.create-treatment-form,
+.edit-treatment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.create-treatment-label,
+.edit-treatment-label {
+    color: #2b2b2b;
+    font-weight: bold;
+}
+
+.create-treatment-input,
+.edit-treatment-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+    .create-treatment-input:focus,
+    .edit-treatment-input:focus {
+        outline: none;
+        border-color: #8b5e34;
+        box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.18);
+    }
+
+.create-treatment-validation,
+.edit-treatment-validation,
+.delete-treatment-validation {
+    color: #c0392b;
+    font-size: 14px;
+}
+
+/* BUTTONS */
+
+.create-treatment-submit,
+.create-treatment-back,
+.edit-treatment-submit,
+.edit-treatment-back,
+.delete-treatment-submit,
+.delete-treatment-back {
+    width: 100%;
+    height: 56px;
+    margin-top: 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.create-treatment-submit,
+.edit-treatment-submit,
+.delete-treatment-submit {
+    border: none;
+    color: white;
+}
+
+.create-treatment-submit,
+.edit-treatment-submit {
+    background: #8b5e34;
+}
+
+    .create-treatment-submit:hover,
+    .edit-treatment-submit:hover {
+        background: #6f4727;
+        transform: translateY(-2px);
+    }
+
+.delete-treatment-submit {
+    background: #a33a3a;
+}
+
+    .delete-treatment-submit:hover {
+        background: #7d2929;
+        transform: translateY(-2px);
+    }
+
+.create-treatment-back,
+.edit-treatment-back,
+.delete-treatment-back {
+    background: #2b2b2b;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .create-treatment-back:hover,
+    .edit-treatment-back:hover,
+    .delete-treatment-back:hover {
+        background: #111;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+/* DELETE TREATMENT */
+
+.delete-treatment-warning {
+    margin-bottom: 25px;
+    text-align: center;
+    color: #a33a3a;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.delete-treatment-info {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #f4efe8;
+}
+
+    .delete-treatment-info p {
+        margin: 10px 0;
+        color: #2b2b2b;
+        font-size: 16px;
+    }
+
+/* PUBLIC TREATMENTS PAGE */
+
+.getall-treatments-page {
+    min-height: 100vh;
+    padding: 120px 25px 70px;
+    color: #1f1f1f;
+}
+
+.treatments-hero {
+    max-width: 1200px;
+    min-height: 340px;
+    margin: 0 auto 65px;
+    border-radius: 24px;
+    background: linear-gradient(rgba(17,17,17,0.60), rgba(17,17,17,0.60)), url("/images/herotreatment.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.14);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.treatments-hero-content {
+    max-width: 650px;
+    padding: 55px;
+    color: white;
+}
+
+.treatments-small-title {
+    margin-bottom: 12px;
+    color: #c89b5f;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.treatments-hero h1 {
+    margin-bottom: 18px;
+    font-family: Georgia, serif;
+    font-size: 58px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.treatments-gold-line,
+.category-line {
+    background: #c89b5f;
+}
+
+.treatments-gold-line {
+    width: 70px;
+    height: 2px;
+    margin-bottom: 22px;
+}
+
+.treatments-hero-content p:last-child {
+    color: #f2f2f2;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.getall-treatments-category-section {
+    max-width: 1200px;
+    margin: 0 auto 55px;
+}
+
+.treatment-category-header {
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.getall-treatments-category-title {
+    margin: 0;
+    color: #173125;
+    font-family: Georgia, serif;
+    font-size: 34px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.category-line {
+    width: 70px;
+    height: 2px;
+    margin-top: 10px;
+}
+
+.treatment-table-wrapper {
+    background: white;
+    border: 1px solid #eee5da;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.getall-treatments-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .getall-treatments-table thead {
+        background: #173125;
+    }
+
+    .getall-treatments-table th {
+        padding: 20px 24px;
+        color: #c89b5f;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .getall-treatments-table td {
+        padding: 22px 24px;
+        border-bottom: 1px solid #eee5da;
+        color: #2b2b2b;
+        font-size: 17px;
+    }
+
+    .getall-treatments-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .getall-treatments-table tbody tr:hover {
+        background: #f8f3eb;
+    }
+
+.treatment-name {
+    color: #111;
+    font-weight: 700;
+}
+
+.treatment-price {
+    color: #8b5e34;
+    font-weight: 700;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .treatment-admin-page {
+        padding: 35px 15px;
+    }
+
+    .treatment-admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .treatment-admin-header h1,
+        .create-treatment-title,
+        .edit-treatment-title,
+        .delete-treatment-title {
+            font-size: 32px;
+        }
+
+    .treatment-add-btn {
+        width: 100%;
+    }
+
+    .treatment-table-card {
+        overflow-x: auto;
+    }
+
+    .treatment-table {
+        min-width: 860px;
+    }
+
+    .create-treatment-page,
+    .edit-treatment-page,
+    .delete-treatment-page {
+        padding: 100px 15px 50px;
+    }
+
+    .create-treatment-card,
+    .edit-treatment-card,
+    .delete-treatment-card {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .getall-treatments-page {
+        padding: 100px 15px 50px;
+    }
+
+    .treatments-hero {
+        min-height: 280px;
+        margin-bottom: 45px;
+    }
+
+    .treatments-hero-content {
+        padding: 35px 25px;
+    }
+
+    .treatments-hero h1 {
+        font-size: 38px;
+    }
+
+    .getall-treatments-category-title {
+        font-size: 28px;
+    }
+
+    .getall-treatments-table th,
+    .getall-treatments-table td {
+        padding: 16px 14px;
+        font-size: 14px;
+    }
+}

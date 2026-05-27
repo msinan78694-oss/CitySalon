@@ -1,0 +1,83 @@
+﻿@page
+@model CitySalon.Pages.Treatments.CreateTreatmentModel
+
+<link rel="stylesheet" href="~/css/treatment.css" asp-append-version="true" />
+
+<div class="create-treatment-page">
+
+    <div class="create-treatment-card">
+
+        <h1 class="create-treatment-title">
+            Opret behandling
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="create-treatment-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="create-treatment-validation">
+            </div>
+
+            <label class="create-treatment-label">Behandling</label>
+
+            <!-- Binder inputfeltet til Treatment.Name -->
+            <input asp-for="Treatment.Name"
+                   class="create-treatment-input" />
+
+            <span asp-validation-for="Treatment.Name"
+                  class="create-treatment-validation">
+            </span>
+
+            <label class="create-treatment-label">Varighed i minutter</label>
+
+            <!-- type=number passer til heltal -->
+            <input asp-for="Treatment.DurationInMinutes"
+                   type="number"
+                   class="create-treatment-input" />
+
+            <span asp-validation-for="Treatment.DurationInMinutes"
+                  class="create-treatment-validation">
+            </span>
+
+            <label class="create-treatment-label">Kategori</label>
+
+            <input asp-for="Treatment.Category"
+                   class="create-treatment-input" />
+
+            <span asp-validation-for="Treatment.Category"
+                  class="create-treatment-validation">
+            </span>
+
+            <label class="create-treatment-label">Pris</label>
+
+            <!-- step=0.01 passer til decimal-priser -->
+            <input asp-for="Treatment.Price"
+                   type="number"
+                   step="0.01"
+                   class="create-treatment-input" />
+
+            <span asp-validation-for="Treatment.Price"
+                  class="create-treatment-validation">
+            </span>
+
+            <button type="submit" class="create-treatment-submit">
+                Gem behandling
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at gemme -->
+        <a asp-page="/Admin/Treatments/GetAllTreatments"
+           class="create-treatment-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+}

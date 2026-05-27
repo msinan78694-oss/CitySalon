@@ -1,0 +1,91 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Bookings.DeleteBookingModel
+
+<div class="booking-create-page">
+
+    <div class="booking-delete-box">
+
+        <h1 class="booking-create-title">
+            Slet booking
+        </h1>
+
+        <!-- Viser fejlbeskeder fra PageModel -->
+        <div asp-validation-summary="All"
+             class="text-danger">
+        </div>
+
+        <p>
+            Er du sikker på, at du vil slette denne booking?
+        </p>
+
+        <!-- Viser bookingens oplysninger,
+             så brugeren kan se hvad der slettes -->
+        <div class="booking-delete-info">
+
+            <p>
+                <strong>Kunde:</strong>
+
+                <!-- ?. bruges fordi Customer kan være null -->
+                @Model.Booking.Customer?.Name
+            </p>
+
+            <p>
+                <strong>Behandling:</strong>
+                @Model.Booking.Treatment?.Name
+            </p>
+
+            <p>
+                <strong>Medarbejder:</strong>
+                @Model.Booking.Employee?.Name
+            </p>
+
+            <p>
+                <strong>Dato:</strong>
+
+                <!-- Formatterer datoen -->
+                @Model.Booking.StartTime.ToString("dd-MM-yyyy")
+            </p>
+
+            <p>
+                <strong>Tid:</strong>
+
+                <!-- Formatterer start- og sluttidspunkt -->
+                @Model.Booking.StartTime.ToString("HH:mm")
+                -
+                @Model.Booking.EndTime.ToString("HH:mm")
+            </p>
+
+        </div>
+
+        <!-- Formularen sender POST til OnPost.
+             asp-route-id sender bookingens id til PageModel -->
+        <form method="post"
+              asp-route-id="@Model.Booking.BookingId">
+
+            <!-- Hidden input sender også BookingId med.
+                 Det er lidt dobbelt sammen med asp-route-id,
+                 men det er ikke farligt. -->
+            <input type="hidden"
+                   asp-for="Booking.BookingId" />
+
+            <button type="submit"
+                    class="btn btn-delete">
+                Slet booking
+            </button>
+
+            <!-- Går tilbage uden at slette -->
+            <a asp-page="BookingOverview"
+               class="btn btn-back">
+                Annuller
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+}

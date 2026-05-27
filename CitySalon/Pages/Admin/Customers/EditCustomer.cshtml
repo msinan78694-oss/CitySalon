@@ -1,0 +1,90 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Customers.EditCustomerModel
+
+<link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+
+<div class="edit-customer-page">
+
+    <div class="edit-customer-card">
+
+        <h1 class="edit-customer-title">
+            Rediger kunde
+        </h1>
+
+        <!-- Formularen sender ændringerne til OnPost i PageModel -->
+        <form method="post" class="edit-customer-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="edit-customer-validation">
+            </div>
+
+            <!-- Skjult id.
+                 Brugeren skal ikke ændre id,
+                 men PageModel skal bruge det for at opdatere korrekt kunde. -->
+            <input type="hidden" asp-for="Customer.Id" />
+
+            <label class="edit-customer-label">Navn</label>
+            <input asp-for="Customer.Name"
+                   class="edit-customer-input" />
+
+            <span asp-validation-for="Customer.Name"
+                  class="edit-customer-validation">
+            </span>
+
+            <label class="edit-customer-label">Email</label>
+            <input asp-for="Customer.Email"
+                   class="edit-customer-input" />
+
+            <span asp-validation-for="Customer.Email"
+                  class="edit-customer-validation">
+            </span>
+
+            <label class="edit-customer-label">Telefon</label>
+            <input asp-for="Customer.Phone"
+                   class="edit-customer-input" />
+
+            <span asp-validation-for="Customer.Phone"
+                  class="edit-customer-validation">
+            </span>
+
+            <label class="edit-customer-label">Brugernavn</label>
+            <input asp-for="Customer.UserName"
+                   class="edit-customer-input" />
+
+            <span asp-validation-for="Customer.UserName"
+                  class="edit-customer-validation">
+            </span>
+
+            <label class="edit-customer-label">Kodeord</label>
+            <input asp-for="Customer.Password"
+                   class="edit-customer-input" />
+
+            <span asp-validation-for="Customer.Password"
+                  class="edit-customer-validation">
+            </span>
+
+            <!-- Skjult rolle.
+                 Rollen skal bevares, men brugeren skal ikke selv ændre den. -->
+            <input type="hidden" asp-for="Customer.Role" />
+
+            <button type="submit" class="edit-customer-submit">
+                Gem ændringer
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at gemme ændringer -->
+        <a asp-page="/Admin/Customers/GetAllCustomers"
+           class="edit-customer-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+}

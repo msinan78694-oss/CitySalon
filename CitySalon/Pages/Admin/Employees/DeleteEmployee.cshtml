@@ -1,0 +1,56 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Admin.Employees.DeleteEmployeeModel
+
+<link rel="stylesheet" href="~/css/employee.css" />
+
+<div class="employee-form-page">
+
+    <div class="employee-form-card">
+
+        <h1 class="employee-form-title">
+            Slet medarbejder
+        </h1>
+
+        <p class="employee-delete-warning">
+            Er du sikker på, at du vil slette denne medarbejder?
+        </p>
+
+        <!-- Viser medarbejderens oplysninger,
+             så admin kan se hvem der slettes -->
+        <div class="employee-delete-info">
+
+            <p>
+                <strong>Navn:</strong>
+                @Model.Employee.Name
+            </p>
+
+            <p>
+                <strong>Brugernavn:</strong>
+                @Model.Employee.UserName
+            </p>
+
+        </div>
+
+        <!-- Formularen sender en POST-request til OnPost -->
+        <form method="post" class="employee-form">
+
+            <!-- Skjult id.
+                 Brugeren skal ikke ændre id'et,
+                 men PageModel skal bruge det til sletning -->
+            <input type="hidden" asp-for="Employee.Id" />
+
+            <button type="submit" class="employee-delete-btn">
+                Slet
+            </button>
+
+            <!-- Går tilbage uden at slette -->
+            <a asp-page="/Admin/Employees/GetAllEmployees"
+               class="employee-back-btn">
+                Annuller
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

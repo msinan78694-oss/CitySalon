@@ -1,0 +1,102 @@
+﻿@page
+@model CitySalon.Pages.Customers.GetAllCustomersModel
+@using CitySalon.Helpers
+
+<link rel="stylesheet" href="~/css/customer.css" />
+
+<div class="admin-table-page">
+
+    <div class="admin-table-header">
+        <h1>Administrer kunder</h1>
+    </div>
+
+    <!-- GET bruges til søgning,
+         fordi søgeteksten gerne må stå i URL'en -->
+    <form method="get" class="admin-search-form">
+
+        <!-- Navnet SearchTerm matcher property i PageModel -->
+        <input type="text"
+               name="SearchTerm"
+               value="@Model.SearchTerm"
+               placeholder="Søg kunde efter navn, telefon, email eller brugernavn" />
+
+        <button type="submit">
+            Søg
+        </button>
+
+        <!-- Link til oprettelse af ny kunde -->
+        <a class="admin-add-btn"
+           asp-page="/Admin/Customers/CreateCustomer">
+            Tilføj kunde
+        </a>
+
+        <!-- Vises kun hvis brugeren har skrevet noget i søgefeltet -->
+        @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+        {
+            <a class="admin-clear-btn"
+               asp-page="/Admin/Customers/GetAllCustomers">
+                Ryd
+            </a>
+        }
+
+    </form>
+
+    <div class="admin-table-card">
+
+        <table class="admin-table">
+
+            <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Brugernavn</th>
+                    <th>Handlinger</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- Gennemgår alle kunder fra PageModel -->
+                @foreach (var customer in Model.Customers)
+                {
+                    <tr>
+                        <td>@customer.Name</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.Phone</td>
+                        <td>@customer.UserName</td>
+
+                        <td>
+                            <div class="admin-actions">
+
+                                <!-- Sender kundens id med til redigeringssiden -->
+                                <a class="admin-icon-btn admin-edit-icon"
+                                   asp-page="/Admin/Customers/EditCustomer"
+                                   asp-route-id="@customer.Id"
+                                   title="Rediger kunde">
+                                    <span>✎</span>
+                                </a>
+
+                                <!-- Kun admin må slette kunder -->
+                                @if (SessionHelper.IsAdmin(HttpContext))
+                                {
+                                    <a class="admin-icon-btn admin-delete-icon"
+                                       asp-page="/Admin/Customers/DeleteCustomer"
+                                       asp-route-id="@customer.Id"
+                                       title="Slet kunde">
+                                        <span>🗑</span>
+                                    </a>
+                                }
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

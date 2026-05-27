@@ -1,0 +1,129 @@
+﻿@page
+@model CitySalon.Pages.Products.EditProductModel
+
+<link rel="stylesheet" href="~/css/product.css" asp-append-version="true" />
+
+<div class="edit-product-page">
+
+    <div class="edit-product-card">
+
+        <h1 class="edit-product-title">
+            Rediger produkt
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="edit-product-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="edit-product-validation">
+            </div>
+
+            <!-- Skjult ProductId.
+                 Brugeren skal ikke ændre id'et,
+                 men PageModel skal bruge det ved update -->
+            <input type="hidden"
+                   asp-for="Product.ProductId" />
+
+            <label class="edit-product-label">Navn</label>
+
+            <!-- Binder inputfeltet til Product.Name -->
+            <input asp-for="Product.Name"
+                   class="edit-product-input" />
+
+            <span asp-validation-for="Product.Name"
+                  class="edit-product-validation">
+            </span>
+
+            <label class="edit-product-label">Pris</label>
+
+            <!-- type=number bruges til decimal-tal -->
+            <input asp-for="Product.Price"
+                   type="number"
+                   step="0.01"
+                   class="edit-product-input" />
+
+            <span asp-validation-for="Product.Price"
+                  class="edit-product-validation">
+            </span>
+
+            <label class="edit-product-label">Type</label>
+
+            <input asp-for="Product.Type"
+                   class="edit-product-input" />
+
+            <span asp-validation-for="Product.Type"
+                  class="edit-product-validation">
+            </span>
+
+            <label class="edit-product-label">Størrelse</label>
+
+            <input asp-for="Product.Size"
+                   class="edit-product-input" />
+
+            <span asp-validation-for="Product.Size"
+                  class="edit-product-validation">
+            </span>
+
+            <label class="edit-product-label">Brand</label>
+
+            <input asp-for="Product.Brand"
+                   class="edit-product-input" />
+
+            <span asp-validation-for="Product.Brand"
+                  class="edit-product-validation">
+            </span>
+
+            <label class="edit-product-label">Beskrivelse</label>
+
+            <!-- textarea bruges til længere tekst -->
+            <textarea asp-for="Product.Description"
+                      class="edit-product-textarea">
+            </textarea>
+
+            <span asp-validation-for="Product.Description"
+                  class="edit-product-validation">
+            </span>
+
+            <label class="edit-product-label">Billede URL</label>
+
+            <input asp-for="Product.ImageUrl"
+                   class="edit-product-input" />
+
+            <!-- Preview af produktbilledet -->
+            <div class="edit-product-preview">
+
+                <p class="edit-product-preview-title">
+                    Billede preview
+                </p>
+
+                <!-- Viser billedet fra wwwroot/images -->
+                <img src="~/images/@Model.Product.ImageUrl"
+                     class="edit-product-preview-image"
+                     alt="@Model.Product.Name" />
+
+            </div>
+
+            <button type="submit"
+                    class="edit-product-submit">
+                Gem ændringer
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at gemme -->
+        <a asp-page="/Admin/Products/GetAllProducts"
+           class="edit-product-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

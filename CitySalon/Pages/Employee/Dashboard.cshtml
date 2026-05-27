@@ -1,0 +1,90 @@
+﻿@page
+@model CitySalon.Pages.Employee.DashboardModel
+
+<link rel="stylesheet"
+      href="~/css/dashboard.css"
+      asp-append-version="true" />
+
+<div class="admin-layout">
+
+    <!-- Sidebar med navigation -->
+    <aside class="admin-sidebar">
+
+        <h2>CitySalon</h2>
+
+        <!-- Navigation links -->
+        <a asp-page="/Employee/Dashboard">
+            Dashboard
+        </a>
+
+        <a asp-page="/Bookings/BookingOverview">
+            Bookinger
+        </a>
+
+        <a asp-page="/Bookings/CreateBooking">
+            Opret booking
+        </a>
+
+        <a asp-page="/Admin/Customers/GetAllCustomers">
+            Kunder
+        </a>
+
+    </aside>
+
+    <!-- Hovedindhold -->
+    <main class="admin-content">
+
+        <h1>Employee Dashboard</h1>
+
+        <div class="dashboard-cards">
+
+            <!-- Kort til bookingoversigt -->
+            <div class="dashboard-card">
+
+                <h3>Bookinger</h3>
+
+                <p>
+                    Se og administrer bookinger.
+                </p>
+
+                <a asp-page="/Bookings/BookingOverview">
+                    Gå til bookinger
+                </a>
+
+            </div>
+
+            <!-- Kort til oprettelse af booking -->
+            <div class="dashboard-card">
+
+                <h3>Opret booking</h3>
+
+                <p>
+                    Opret en ny booking for en kunde.
+                </p>
+
+                <a asp-page="/Bookings/CreateBooking">
+                    Opret booking
+                </a>
+
+            </div>
+
+            <!-- Kort til kundehåndtering -->
+            <div class="dashboard-card">
+
+                <h3>Kunder</h3>
+
+                <p>
+                    Se, opret og rediger kunder.
+                </p>
+
+                <a asp-page="/Admin/Customers/GetAllCustomers">
+                    Gå til kunder
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>

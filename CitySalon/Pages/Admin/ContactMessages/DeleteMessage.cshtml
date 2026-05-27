@@ -1,0 +1,67 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Admin.ContactMessages.DeleteMessageModel
+
+<link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+
+<!-- Hele siden til sletning af besked -->
+<div class="delete-message-page">
+
+    <!-- Kortet som indeholder slettebekræftelsen -->
+    <div class="delete-message-card">
+
+        <h1 class="delete-message-title">
+            Slet besked
+        </h1>
+
+        <p class="delete-message-warning">
+            Er du sikker på, at du vil slette denne besked?
+        </p>
+
+        <!-- Viser kun beskedens informationer, hvis beskeden blev fundet -->
+        @if (Model.ContactMessage != null)
+        {
+            <div class="delete-message-info">
+
+                <p>
+                    <strong>Navn:</strong>
+                    @Model.ContactMessage.Name
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    @Model.ContactMessage.Email
+                </p>
+
+                <div class="delete-message-text-box">
+                    <strong>Besked:</strong>
+
+                    <p>
+                        @Model.ContactMessage.Message
+                    </p>
+                </div>
+
+            </div>
+        }
+
+        <!-- Formularen sender en POST-request, når admin bekræfter sletning -->
+        <form method="post" class="delete-message-form">
+
+            <!-- Gemmer beskedens id usynligt,
+                 så PageModel ved hvilken besked der skal slettes -->
+            <input type="hidden" asp-for="ContactMessageId" />
+
+            <button type="submit" class="delete-message-submit">
+                Slet
+            </button>
+
+        </form>
+
+        <!-- Sender brugeren tilbage uden at slette noget -->
+        <a asp-page="GetAllMessages"
+           class="delete-message-back">
+            Annuller
+        </a>
+
+    </div>
+
+</div>

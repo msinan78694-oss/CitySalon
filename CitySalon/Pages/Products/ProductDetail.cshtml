@@ -1,0 +1,128 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Products.ProductDetailModel
+
+<link rel="stylesheet" href="~/css/product.css" />
+
+<div class="product-details-page">
+
+    <div class="product-details-layout">
+
+        <!-- Viser billedet for det valgte produkt -->
+        <div class="product-details-image-area">
+            <img src="~/images/@Model.Product.ImageUrl"
+                 class="product-details-image"
+                 alt="@Model.Product.Name" />
+        </div>
+
+        <!-- Viser information om det valgte produkt -->
+        <div class="product-details-info-area">
+
+            <p class="product-details-brand">
+                @Model.Product.Brand
+            </p>
+
+            <h1 class="product-details-title">
+                @Model.Product.Name
+            </h1>
+
+            <div class="product-details-gold-line"></div>
+
+            <p class="product-details-type">
+                @Model.Product.Type
+            </p>
+
+            <p class="product-details-price">
+                @Model.Product.Price.ToString("0.00") kr.
+            </p>
+
+            <p class="product-details-description">
+                @Model.Product.Description
+            </p>
+
+            <div class="product-details-info-box">
+
+                <div class="product-details-info-row">
+                    <span class="product-details-info-label">Størrelse</span>
+                    <span>@Model.Product.Size</span>
+                </div>
+
+                <div class="product-details-info-row">
+                    <span class="product-details-info-label">Brand</span>
+                    <span>@Model.Product.Brand</span>
+                </div>
+
+                <div class="product-details-info-row">
+                    <span class="product-details-info-label">Type</span>
+                    <span>@Model.Product.Type</span>
+                </div>
+
+            </div>
+
+            <div class="product-details-actions">
+
+                <!-- Knappen er kun visuel, hvis der ikke er lavet kurv-logik endnu -->
+                <button class="product-details-cart-button">
+                    Tilføj til kurv
+                </button>
+
+                <!-- Link tilbage til produktoversigten -->
+                <a asp-page="GetAllProducts"
+                   class="product-details-back-button">
+                    Tilbage til produkter
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <section class="related-products-section">
+
+        <div class="related-products-header">
+            <h2 class="related-products-title">
+                Lignende produkter
+            </h2>
+
+            <div class="category-line"></div>
+        </div>
+
+        <div class="related-products-grid">
+
+            <!-- Gennemgår og viser lignende produkter -->
+            @foreach (var relatedProduct in Model.RelatedProducts)
+            {
+                <a asp-page="/Products/ProductDetail"
+                   asp-route-id="@relatedProduct.ProductId"
+                   class="related-product-card">
+
+                    <div class="related-product-image-area">
+                        <img src="~/images/@relatedProduct.ImageUrl"
+                             class="related-product-image"
+                             alt="@relatedProduct.Name" />
+                    </div>
+
+                    <div class="related-product-content">
+
+                        <p class="related-product-brand">
+                            @relatedProduct.Brand
+                        </p>
+
+                        <h3 class="related-product-name">
+                            @relatedProduct.Name
+                        </h3>
+
+                        <p class="related-product-price">
+                            @relatedProduct.Price.ToString("0.00") kr.
+                        </p>
+
+                    </div>
+
+                </a>
+            }
+
+        </div>
+
+    </section>
+
+</div>

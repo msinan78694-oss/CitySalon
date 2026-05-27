@@ -1,0 +1,106 @@
+﻿@page
+@model CitySalon.Pages.Admin.ContactMessages.GetAllMessagesModel
+
+@{
+    ViewData["Title"] = "Kontaktbeskeder";
+}
+
+<link rel="stylesheet" href="~/css/messages.css" asp-append-version="true" />
+
+<!-- Hele admin-siden til kontaktbeskeder -->
+<div class="messages-admin-page">
+
+    <div class="messages-admin-header">
+
+        <h1 class="messages-admin-title">
+            Kontaktbeskeder
+        </h1>
+
+    </div>
+
+    <div class="messages-table-card">
+
+        <!-- Tabellen viser alle kontaktbeskeder -->
+        <table class="messages-table">
+
+            <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>Email</th>
+                    <th>Besked</th>
+                    <th>Sendt</th>
+                    <th>Status</th>
+                    <th>Handlinger</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- Gennemgår alle beskeder fra PageModel -->
+                @foreach (var message in Model.ContactMessages)
+                {
+                    <tr>
+
+                        <td>@message.Name</td>
+
+                        <td>@message.Email</td>
+
+                        <td class="message-text">
+                            @message.Message
+                        </td>
+
+                        <!-- Formaterer dato og tidspunkt -->
+                        <td>
+                            @message.SentAt.ToString("dd-MM-yyyy HH:mm")
+                        </td>
+
+                        <td>
+
+                            <!-- Viser forskellig status afhængigt af IsRead -->
+                            @if (message.IsRead)
+                            {
+                                <span class="message-status-read">
+                                    Læst
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="message-status-new">
+                                    Ny
+                                </span>
+                            }
+
+                        </td>
+
+                        <td>
+
+                            <div class="message-actions">
+
+                                <!-- Sender brugeren til detaljesiden -->
+                                <a asp-page="MessageDetails"
+                                   asp-route-id="@message.ContactMessageId"
+                                   class="message-view-button">
+                                    Se
+                                </a>
+
+                                <!-- Sender brugeren til slette-siden -->
+                                <a asp-page="DeleteMessage"
+                                   asp-route-id="@message.ContactMessageId"
+                                   class="message-delete-button">
+                                    Slet
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

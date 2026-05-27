@@ -1,0 +1,77 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Admin.ContactMessages.MessageDetailsModel
+
+<link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+
+<!-- Side som viser detaljer om én kontaktbesked -->
+<div class="message-details-page">
+
+    <div class="message-details-card">
+
+        <h1 class="message-details-title">
+            Besked detaljer
+        </h1>
+
+        <div class="message-details-info">
+
+            <p>
+                <strong>Navn:</strong>
+
+                <!-- ?. bruges for at undgå fejl,
+                     hvis ContactMessage er null -->
+                @Model.ContactMessage?.Name
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+
+                @Model.ContactMessage?.Email
+            </p>
+
+            <p>
+                <strong>Sendt:</strong>
+
+                <!-- Formaterer dato og tidspunkt -->
+                @Model.ContactMessage?.SentAt.ToString("dd-MM-yyyy HH:mm")
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+
+                <!-- Viser status afhængigt af IsRead -->
+                @if (Model.ContactMessage != null && Model.ContactMessage.IsRead)
+                {
+                    <span class="message-status-read">
+                        Læst
+                    </span>
+                }
+                else
+                {
+                    <span class="message-status-new">
+                        Ny
+                    </span>
+                }
+
+            </p>
+
+        </div>
+
+        <div class="message-details-text-box">
+
+            <strong>Besked:</strong>
+
+            <p>
+                @Model.ContactMessage?.Message
+            </p>
+
+        </div>
+
+        <!-- Tilbage til oversigten -->
+        <a asp-page="GetAllMessages"
+           class="message-details-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>

@@ -1,0 +1,98 @@
+﻿@page
+@model CitySalon.Pages.Treatments.GetAllTreatmentsModel
+
+<link rel="stylesheet" href="~/css/treatment.css" />
+
+<div class="getall-treatments-page">
+
+    <!-- Hero-sektion -->
+    <section class="treatments-hero">
+
+        <div class="treatments-hero-content">
+
+            <p class="treatments-small-title">
+                CitySalon
+            </p>
+
+            <h1>Behandlinger</h1>
+
+            <div class="treatments-gold-line"></div>
+
+            <p>
+                Vælg mellem vores professionelle behandlinger og find den service,
+                der passer bedst til dig.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Gennemgår alle behandlingskategorier -->
+    @foreach (var category in Model.TreatmentCategories)
+    {
+        <section class="getall-treatments-category-section">
+
+            <div class="treatment-category-header">
+
+                <div>
+
+                    <!-- Viser kategoriens navn -->
+                    <h2 class="getall-treatments-category-title">
+                        @category
+                    </h2>
+
+                    <div class="category-line"></div>
+
+                </div>
+
+            </div>
+
+            <div class="treatment-table-wrapper">
+
+                <table class="getall-treatments-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Behandling</th>
+                            <th>Varighed</th>
+                            <th>Pris</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <!-- Filtrerer behandlinger efter kategori -->
+                        @foreach (var treatment in Model.Treatments.Where(t => t.Category == category))
+                        {
+                            <tr>
+
+                                <!-- Navn -->
+                                <td class="treatment-name">
+                                    @treatment.Name
+                                </td>
+
+                                <!-- Varighed -->
+                                <td>
+                                    @treatment.DurationInMinutes min.
+                                </td>
+
+                                <!-- Pris -->
+                                <td class="treatment-price">
+                                    @treatment.Price.ToString("0.00") kr.
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+    }
+
+</div>

@@ -1,0 +1,97 @@
+﻿@page
+@model CitySalon.Pages.Admin.Treatments.GetAllTreatmentsModel
+@using CitySalon.Helpers
+
+<link rel="stylesheet" href="~/css/treatment.css" />
+
+<div class="treatment-admin-page">
+
+    <div class="treatment-admin-header">
+
+        <h1>
+            Administrer behandlinger
+        </h1>
+
+        <!-- Link til oprettelse af ny behandling -->
+        <a class="treatment-add-btn"
+           asp-page="/Admin/Treatments/CreateTreatment">
+            Tilføj behandling
+        </a>
+
+    </div>
+
+    <div class="treatment-table-card">
+
+        <!-- Tabellen viser alle behandlinger -->
+        <table class="treatment-table">
+
+            <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>Varighed</th>
+                    <th>Pris</th>
+                    <th>Handlinger</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- Gennemgår alle behandlinger fra PageModel -->
+                @foreach (var treatment in Model.Treatments)
+                {
+                    <tr>
+
+                        <td>@treatment.Name</td>
+
+                        <td>
+                            @treatment.DurationInMinutes min.
+                        </td>
+
+                        <td>
+
+                            <!-- N2 formatterer decimalen til 2 decimaler -->
+                            @treatment.Price.ToString("N2") kr.
+
+                        </td>
+
+                        <td>
+
+                            <div class="treatment-actions">
+
+                                <!-- Sender behandlingens id til redigeringssiden -->
+                                <a class="treatment-icon-btn treatment-edit-icon"
+                                   asp-page="/Admin/Treatments/EditTreatment"
+                                   asp-route-id="@treatment.TreatmentId"
+                                   title="Rediger behandling">
+
+                                    <span>✎</span>
+
+                                </a>
+
+                                <!-- Kun admin må se slette-knappen -->
+                                @if (SessionHelper.IsAdmin(HttpContext))
+                                {
+                                    <a class="treatment-icon-btn treatment-delete-icon"
+                                       asp-page="/Admin/Treatments/DeleteTreatment"
+                                       asp-route-id="@treatment.TreatmentId"
+                                       title="Slet behandling">
+
+                                        <span>🗑</span>
+
+                                    </a>
+                                }
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

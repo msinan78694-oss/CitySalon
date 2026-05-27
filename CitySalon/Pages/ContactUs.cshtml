@@ -1,0 +1,95 @@
+﻿@page
+@model CitySalon.Pages.ContactUsModel
+
+@{
+    ViewData["Title"] = "Kontakt os";
+}
+
+<link rel="stylesheet" href="~/css/contact.css" />
+
+<div class="contact-page">
+
+    <div class="contact-container">
+
+        <!-- Statisk kontaktinformation -->
+        <div class="contact-info-card">
+
+            <h1>Kontakt os</h1>
+
+            <p class="contact-subtitle">
+                Hos CitySalon går vi op i kundens behov og ønsker.
+                Kontakt os eller book en tid online.
+            </p>
+
+            <div class="contact-item">
+                <h3>Adresse</h3>
+                <p>Jyllingecentret 37</p>
+                <p>4040 Jyllinge</p>
+            </div>
+
+            <div class="contact-item">
+                <h3>Telefon</h3>
+                <p>+45 53 43 41 53</p>
+            </div>
+
+            <div class="contact-item">
+                <h3>Email</h3>
+                <p>info@citysalon.dk</p>
+            </div>
+
+            <div class="contact-item">
+                <h3>Åbningstider</h3>
+                <p>Mandag - Fredag: 09:00 - 18:00</p>
+                <p>Lørdag: 09:00 - 14:00</p>
+                <p>Søndag: Lukket</p>
+            </div>
+
+        </div>
+
+        <!-- Kontaktformular -->
+        <div class="contact-form-card">
+
+            <h2>Send besked</h2>
+
+            <!-- Formularen sendes til OnPost() i PageModel -->
+            <form method="post" class="contact-form">
+
+                <!-- Viser alle validation-fejl samlet -->
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <label>Navn</label>
+                <input asp-for="Name"
+                       type="text"
+                       placeholder="Dit navn" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label>Email</label>
+                <input asp-for="Email"
+                       type="email"
+                       placeholder="Din email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label>Besked</label>
+                <textarea asp-for="Message"
+                          placeholder="Skriv din besked her"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+
+                <button type="submit">
+                    Send besked
+                </button>
+
+            </form>
+
+            <!-- Vises kun hvis beskeden blev sendt korrekt -->
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="success-message">
+                    @Model.SuccessMessage
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>

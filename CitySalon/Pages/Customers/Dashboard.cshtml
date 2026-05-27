@@ -1,0 +1,131 @@
+﻿@page
+@model CitySalon.Pages.Customers.DashboardModel
+
+@{
+    ViewData["Title"] = "Kunde Dashboard";
+}
+
+<link rel="stylesheet"
+      href="~/css/dashboard.css"
+      asp-append-version="true" />
+
+<div class="customer-dashboard-page">
+
+    <!-- Hero-sektion øverst på kundens dashboard -->
+    <div class="customer-dashboard-hero">
+
+        <div class="customer-dashboard-hero-text">
+
+            <h1 class="customer-dashboard-welcome">
+                Velkommen, @Model.CustomerName
+            </h1>
+
+            <div class="customer-dashboard-line"></div>
+
+            <p class="customer-dashboard-description">
+                Her kan du nemt booke tid og holde styr på
+                dine kommende og tidligere bookinger.
+            </p>
+
+        </div>
+
+        <div class="customer-dashboard-hero-image">
+
+            <!-- Billede fra wwwroot/images -->
+            <img src="~/images/city.png"
+                 alt="Barber værktøj" />
+
+        </div>
+
+    </div>
+
+    <!-- Cards med kundens primære handlinger -->
+    <div class="customer-dashboard-grid">
+
+        <div class="customer-dashboard-card">
+
+            <div class="customer-dashboard-icon">
+                📅
+            </div>
+
+            <h3>Book tid</h3>
+
+            <div class="customer-dashboard-small-line"></div>
+
+            <p>
+                Opret en ny booking, og find en tid der
+                passer dig bedst.
+            </p>
+
+            <!-- Link til bookingformularen -->
+            <a asp-page="/Bookings/CreateBooking">
+                Book ny tid
+            </a>
+
+        </div>
+
+        <div class="customer-dashboard-card">
+
+            <div class="customer-dashboard-icon">
+                🕒
+            </div>
+
+            <h3>Mine bookinger</h3>
+
+            <div class="customer-dashboard-small-line"></div>
+
+            <p>
+                Se dine kommende og tidligere bookinger,
+                og hold styr på dine aftaler.
+            </p>
+
+            <!-- Link til kundens egne bookinger -->
+            <a asp-page="/Bookings/MyBookings">
+                Se mine bookinger
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Nederste informationskort -->
+    <div class="customer-dashboard-bottom-card">
+
+        <div class="customer-dashboard-bottom-left">
+
+            <div class="customer-dashboard-star">
+                ★
+            </div>
+
+            <div>
+
+                <h3>
+                    Tak fordi du er en del af CitySalon
+                </h3>
+
+                <p>
+                    Vi stræber efter at give dig den bedste oplevelse —
+                    hver gang.
+                </p>
+
+                <p>
+                    Har du spørgsmål, er du altid velkommen til at kontakte os
+                    telefonisk på +45 53 43 41 53 eller vha. kontaktformularen:
+
+                    <!-- Link til kontaktformularen -->
+                    <a asp-page="/ContactUs">
+                        Kontakt Os
+                    </a>.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="customer-dashboard-bottom-right">
+            Vi ses snart! ♡
+        </div>
+
+    </div>
+
+</div>

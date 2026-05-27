@@ -1,0 +1,68 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Customers.DeleteCustomerModel
+
+<link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+
+<div class="delete-customer-page">
+
+    <div class="delete-customer-card">
+
+        <h1 class="delete-customer-title">
+            Slet kunde
+        </h1>
+
+        <!-- Viser eventuelle fejlbeskeder fra PageModel -->
+        <div asp-validation-summary="All"
+             class="delete-customer-validation">
+        </div>
+
+        <p class="delete-customer-warning">
+            Er du sikker på, at du vil slette denne kunde?
+        </p>
+
+        <!-- Viser kundens informationer,
+             så admin kan se hvem der slettes -->
+        <div class="delete-customer-info">
+
+            <p>
+                <strong>Navn:</strong>
+                @Model.Customer.Name
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                @Model.Customer.Email
+            </p>
+
+            <p>
+                <strong>Telefon:</strong>
+                @Model.Customer.Phone
+            </p>
+
+        </div>
+
+        <!-- Sender en POST-request til OnPost.
+             asp-route-id sender kundens id med til PageModel -->
+        <form method="post"
+              asp-route-id="@Model.Customer.Id"
+              class="delete-customer-form">
+
+            <button type="submit" class="delete-customer-submit">
+                Slet kunde
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at slette -->
+        <a asp-page="/Admin/Customers/GetAllCustomers"
+           class="delete-customer-back">
+            Annuller
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

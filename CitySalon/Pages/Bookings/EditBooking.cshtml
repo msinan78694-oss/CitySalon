@@ -1,0 +1,131 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Bookings.EditBookingModel
+
+<div class="booking-create-page">
+
+    <div class="booking-create-box">
+
+        <h1 class="booking-create-title">
+            Rediger booking
+        </h1>
+
+        <!-- Formularen sender ændringerne til OnPost i PageModel -->
+        <form method="post" class="booking-form">
+
+            <!-- Skjult BookingId.
+                 Brugeren skal ikke ændre id'et,
+                 men PageModel skal bruge det ved update -->
+            <input type="hidden"
+                   asp-for="Booking.BookingId" />
+
+            <!-- Skjult CustomerId.
+                 Bookingen skal stadig høre til samme kunde -->
+            <input type="hidden"
+                   asp-for="Booking.CustomerId" />
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="text-danger">
+            </div>
+
+            <label>Kunde</label>
+
+            <!-- Kundens navn vises/redigeres via separat property -->
+            <input asp-for="CustomerName" />
+
+            <span asp-validation-for="CustomerName"
+                  class="text-danger">
+            </span>
+
+            <label>Behandling</label>
+
+            <!-- Dropdown med behandlinger fra PageModel -->
+            <select asp-for="Booking.TreatmentId"
+                    asp-items="Model.TreatmentOptions">
+            </select>
+
+            <span asp-validation-for="Booking.TreatmentId"
+                  class="text-danger">
+            </span>
+
+            <label>Medarbejder</label>
+
+            <!-- Dropdown med medarbejdere fra PageModel -->
+            <select asp-for="Booking.EmployeeId"
+                    asp-items="Model.EmployeeOptions">
+            </select>
+
+            <span asp-validation-for="Booking.EmployeeId"
+                  class="text-danger">
+            </span>
+
+            <label>Dato</label>
+
+            <!-- Dato for bookingen -->
+            <input asp-for="SelectedDate"
+                   type="date" />
+
+            <span asp-validation-for="SelectedDate"
+                  class="text-danger">
+            </span>
+
+            <label>Tidspunkt</label>
+
+            <!-- Dropdown med tider fra PageModel -->
+            <select asp-for="SelectedTime">
+
+                @foreach (var time in Model.TimeSlots)
+                {
+                    <option value="@time"
+                            selected="@(Model.SelectedTime == time)">
+                        @time
+                    </option>
+                }
+
+            </select>
+
+            <span asp-validation-for="SelectedTime"
+                  class="text-danger">
+            </span>
+
+            <label>Status</label>
+
+            <!-- Bookingens status kan ændres af admin/medarbejder -->
+            <select asp-for="Booking.Status">
+                <option value="Pending">Afventer</option>
+                <option value="Confirmed">Bekræftet</option>
+                <option value="Cancelled">Annulleret</option>
+                <option value="Completed">Færdig</option>
+            </select>
+
+            <span asp-validation-for="Booking.Status"
+                  class="text-danger">
+            </span>
+
+            <label>Note</label>
+
+            <!-- Valgfri note til bookingen -->
+            <textarea asp-for="Booking.Note">
+            </textarea>
+
+            <button type="submit"
+                    class="booking-submit-button">
+                Gem ændringer
+            </button>
+
+            <!-- Går tilbage uden at gemme -->
+            <a asp-page="BookingOverview"
+               class="product-details-back-button">
+                Tilbage
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+}

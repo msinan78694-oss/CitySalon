@@ -1,0 +1,81 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Admin.Employees.EditEmployeeModel
+
+<link rel="stylesheet" href="~/css/employee.css" />
+
+<div class="employee-form-page">
+
+    <div class="employee-form-card">
+
+        <h1 class="employee-form-title">
+            Rediger medarbejder
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="employee-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- Skjult id.
+                 Brugeren skal ikke kunne ændre id'et,
+                 men PageModel skal bruge det ved update -->
+            <input type="hidden" asp-for="Employee.Id" />
+
+            <!-- Skjult rolle.
+                 Rollen skal bevares ved update,
+                 men brugeren skal ikke selv ændre den -->
+            <input type="hidden" asp-for="Employee.Role" />
+
+            <label class="employee-form-label">Navn</label>
+
+            <!-- Binder inputfeltet til Employee.Name -->
+            <input asp-for="Employee.Name"
+                   class="employee-form-input" />
+
+            <!-- Viser fejlbesked for Name -->
+            <span asp-validation-for="Employee.Name"
+                  class="text-danger">
+            </span>
+
+            <label class="employee-form-label">Brugernavn</label>
+
+            <input asp-for="Employee.UserName"
+                   class="employee-form-input" />
+
+            <span asp-validation-for="Employee.UserName"
+                  class="text-danger">
+            </span>
+
+            <label class="employee-form-label">Password</label>
+
+     
+            <input asp-for="Employee.Password"
+                   class="employee-form-input" />
+
+            <span asp-validation-for="Employee.Password"
+                  class="text-danger">
+            </span>
+
+            <button type="submit" class="employee-submit-btn">
+                Gem ændringer
+            </button>
+
+            <!-- Tilbage uden at gemme ændringer -->
+            <a asp-page="/Admin/Employees/GetAllEmployees"
+               class="employee-back-btn">
+                Tilbage
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

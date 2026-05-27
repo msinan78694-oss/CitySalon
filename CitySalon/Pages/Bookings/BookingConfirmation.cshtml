@@ -1,0 +1,57 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Bookings.BookingConfirmationModel
+
+<link rel="stylesheet" href="~/css/booking.css" asp-append-version="true" />
+
+<div class="booking-confirmation-page">
+
+    <div class="booking-confirmation-box">
+
+        <h1>Din booking er oprettet</h1>
+
+        <p>
+            Tak for din booking. Din tid er nu sendt ind og afventer bekræftelse.
+        </p>
+
+        @if (Model.Booking != null)
+        {
+            <div class="booking-confirmation-details">
+
+                <p>
+                    <strong>Behandling:</strong>
+                    @Model.Booking.Treatment?.Name
+                </p>
+
+                <p>
+                    <strong>Medarbejder:</strong>
+                    @Model.Booking.Employee?.Name
+                </p>
+
+                <p>
+                    <strong>Dato:</strong>
+                    @Model.Booking.StartTime.ToString("dd-MM-yyyy")
+                </p>
+
+                <p>
+                    <strong>Tid:</strong>
+                    @Model.Booking.StartTime.ToString("HH:mm")
+                    -
+                    @Model.Booking.EndTime.ToString("HH:mm")
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    Afventer
+                </p>
+
+            </div>
+        }
+
+        <a asp-page="/Bookings/MyBookings"
+           class="booking-submit-button">
+            Se mine bookinger
+        </a>
+
+    </div>
+
+</div>

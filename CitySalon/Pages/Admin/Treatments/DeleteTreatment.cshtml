@@ -1,0 +1,73 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Treatments.DeleteTreatmentModel
+
+<link rel="stylesheet" href="~/css/treatment.css" asp-append-version="true" />
+
+<div class="delete-treatment-page">
+
+    <div class="delete-treatment-card">
+
+        <h1 class="delete-treatment-title">
+            Slet behandling
+        </h1>
+
+        <!-- Viser fejlbeskeder fra PageModel -->
+        <div asp-validation-summary="All"
+             class="delete-treatment-validation">
+        </div>
+
+        <p class="delete-treatment-warning">
+            Er du sikker på, at du vil slette denne behandling?
+        </p>
+
+        <!-- Viser behandlingens oplysninger -->
+        <div class="delete-treatment-info">
+
+            <p>
+                <strong>Behandling:</strong>
+                @Model.Treatment.Name
+            </p>
+
+            <p>
+                <strong>Varighed:</strong>
+                @Model.Treatment.DurationInMinutes min.
+            </p>
+
+            <p>
+                <strong>Pris:</strong>
+
+                <!-- Formatterer decimal-prisen -->
+                @Model.Treatment.Price.ToString("0.00") kr.
+            </p>
+
+        </div>
+
+        <!-- Formularen sender POST til OnPost -->
+        <form method="post"
+              asp-route-id="@Model.Treatment.TreatmentId"
+              class="delete-treatment-form">
+
+            <!-- asp-route-id sender behandlingens id til PageModel -->
+            <button type="submit"
+                    class="delete-treatment-submit">
+                Slet behandling
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at slette -->
+        <a asp-page="/Admin/Treatments/GetAllTreatments"
+           class="delete-treatment-back">
+            Annuller
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

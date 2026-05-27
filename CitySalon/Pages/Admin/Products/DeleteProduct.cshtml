@@ -1,0 +1,78 @@
+﻿@page "{id:int}"
+@model CitySalon.Pages.Products.DeleteProductModel
+
+<link rel="stylesheet" href="~/css/product.css" asp-append-version="true" />
+
+<div class="delete-product-page">
+
+    <div class="delete-product-card">
+
+        <h1 class="delete-product-title">
+            Slet produkt
+        </h1>
+
+        <!-- Viser fejlbeskeder fra PageModel -->
+        <div asp-validation-summary="All"
+             class="delete-product-validation">
+        </div>
+
+        <p class="delete-product-warning">
+            Er du sikker på, at du vil slette dette produkt?
+        </p>
+
+        <!-- Viser produktets billede -->
+        <img src="~/images/@Model.Product.ImageUrl"
+             class="delete-product-image"
+             alt="@Model.Product.Name" />
+
+        <!-- Viser produktets informationer -->
+        <div class="delete-product-info">
+
+            <p>
+                <strong>Navn:</strong>
+                @Model.Product.Name
+            </p>
+
+            <p>
+                <strong>Pris:</strong>
+
+                <!-- ToString formatterer decimalen -->
+                @Model.Product.Price.ToString("0.00") kr.
+            </p>
+
+            <p>
+                <strong>Type:</strong>
+                @Model.Product.Type
+            </p>
+
+        </div>
+
+        <!-- Formularen sender POST til OnPost -->
+        <form method="post"
+              asp-route-id="@Model.Product.ProductId"
+              class="delete-product-form">
+
+            <!-- asp-route-id sender produktets id til PageModel -->
+            <button type="submit"
+                    class="delete-product-submit">
+                Slet produkt
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at slette -->
+        <a asp-page="/Admin/Products/GetAllProducts"
+           class="delete-product-back">
+            Annuller
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

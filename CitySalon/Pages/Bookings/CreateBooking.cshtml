@@ -1,0 +1,215 @@
+﻿@page
+@model CitySalon.Pages.Bookings.CreateBookingModel
+
+<div class="booking-create-page">
+
+    <div class="booking-create-box">
+
+        <h1 class="booking-create-title">
+            Book en tid
+        </h1>
+
+        <p class="booking-create-subtitle">
+            Vælg kunde, medarbejder, behandling, dato og tidspunkt.
+        </p>
+
+        <!-- Formularen sender data til OnPost i CreateBooking PageModel -->
+        <form method="post"
+              asp-page="/Bookings/CreateBooking"
+              class="booking-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="text-danger">
+            </div>
+
+            <!-- Hvis en kunde er logget ind, vises kundens info readonly -->
+            @if (Model.IsCustomerLoggedIn)
+            {
+                <label>Kunde</label>
+
+                <!-- readonly betyder at brugeren kan se feltet,
+                     men ikke ændre værdien -->
+                <input value="@Model.LoggedInCustomerName"
+                       readonly />
+
+                <label>Email</label>
+
+                <input value="@Model.LoggedInCustomerEmail"
+                       readonly />
+
+                <!-- CustomerId sendes skjult med formularen,
+                     fordi booking skal knyttes til den loggede kunde -->
+                <input type="hidden"
+                       asp-for="Booking.CustomerId" />
+            }
+            else
+            {
+                <label>Kundens telefonnummer</label>
+
+                <!-- Bruges af admin/medarbejder til at søge efter en kunde -->
+                <input asp-for="CustomerPhone"
+                       type="tel"
+                       placeholder="Søg på telefonnummer" />
+
+                <span asp-validation-for="CustomerPhone"
+                      class="text-danger">
+                </span>
+
+                <!-- Denne knap kalder OnPostFindCustomer i PageModel -->
+                <!-- formnovalidate bruges fordi vi kun søger kunde,
+                     ikke booker tiden endnu -->
+                <button type="submit"
+                        asp-page-handler="FindCustomer"
+                        formnovalidate
+                        class="booking-submit-button">
+                    Find kunde
+                </button>
+
+                <!-- Denne knap kalder OnPostUseDropInCustomer i PageModel -->
+                <!-- Bruges hvis kunden ikke skal findes/oprettes som normal kunde -->
+                <button type="submit"
+                        asp-page-handler="UseDropInCustomer"
+                        formnovalidate
+                        class="booking-submit-button">
+                    Drop-in kunde
+                </button>
+
+                <!-- Viser søgeresultater hvis der er fundet kunder -->
+                @if (Model.FoundCustomers.Any())
+                {
+                    <div class="customer-search-results">
+
+                        <p>Vælg kunde</p>
+
+                        <!-- Gennemgår alle fundne kunder -->
+                        @foreach (var customer in Model.FoundCustomers)
+                        {
+                            <label class="customer-search-result">
+
+                                <!-- Radio button gør at man kun kan vælge én kunde -->
+                                <input type="radio"
+                                       asp-for="SelectedCustomerId"
+                                       value="@customer.Id" />
+
+                                <span>
+                                    @customer.Name - @customer.Phone - @customer.Email
+                                </span>
+
+                            </label>
+                        }
+
+                    </div>
+                }
+
+                <span asp-validation-for="SelectedCustomerId"
+                      class="text-danger">
+                </span>
+            }
+
+            <label>Medarbejder</label>
+
+            <!-- Dropdown med medarbejdere.
+                 asp-items kommer fra PageModel som SelectListItem-liste -->
+            <select asp-for="Booking.EmployeeId"
+                    asp-items="Model.EmployeeOptions"
+                    onchange="reloadTimes()">
+
+                <option value="">
+                    Vælg medarbejder
+                </option>
+
+            </select>
+
+            <span asp-validation-for="Booking.EmployeeId"
+                  class="text-danger">
+            </span>
+
+            <label>Behandling</label>
+
+            <!-- Dropdown med behandlinger -->
+            <select asp-for="Booking.TreatmentId"
+                    asp-items="Model.TreatmentOptions">
+
+                <option value="">
+                    Vælg behandling
+                </option>
+
+            </select>
+
+            <span asp-validation-for="Booking.TreatmentId"
+                  class="text-danger">
+            </span>
+
+            <label>Dato</label>
+
+            <!-- Når dato ændres, reloades siden for at hente tider -->
+            <input asp-for="SelectedDate"
+                   type="date"
+                   onchange="reloadTimes()" />
+
+            <span asp-validation-for="SelectedDate"
+                  class="text-danger">
+            </span>
+
+            <label>Tidspunkt</label>
+
+            <!-- Dropdown med ledige tider fra PageModel -->
+            <select asp-for="SelectedTime">
+
+                <option value="">
+                    Vælg tidspunkt
+                </option>
+
+                @foreach (var time in Model.TimeSlots)
+                {
+                    <option value="@time">
+                        @time
+                    </option>
+                }
+
+            </select>
+
+            <span asp-validation-for="SelectedTime"
+                  class="text-danger">
+            </span>
+
+            <label>Note</label>
+
+            <!-- Note er valgfri tekst til bookingen -->
+            <textarea asp-for="Booking.Note"
+                      placeholder="Skriv evt. en note">
+            </textarea>
+
+            <button type="submit"
+                    class="booking-submit-button">
+                Book tid
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+@section Scripts { 
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>//Kilde: AI GENARATION
+        // Når medarbejder eller dato ændres,
+        // sendes brugeren til samme side med EmployeeId og SelectedDate i URL'en.
+        // PageModel kan derefter hente ledige tider ud fra de værdier.
+        function reloadTimes() {
+            var employeeId = document.getElementById("Booking_EmployeeId").value;
+            var selectedDate = document.getElementById("SelectedDate").value;
+
+            if (employeeId !== "" && selectedDate !== "") {
+                window.location.href =
+                    "/Bookings/CreateBooking?EmployeeId=" + employeeId +
+                    "&SelectedDate=" + selectedDate;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,151 @@
+﻿@page
+@model CitySalon.Pages.Admin.DashboardModel
+@{
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<!-- Hele admin-layoutet -->
+<div class="admin-layout">
+
+    <!-- Sidebar navigation -->
+    <aside class="admin-sidebar">
+
+        <h2>CitySalon</h2>
+
+        <!-- asp-page genererer links til Razor Pages -->
+        <a asp-page="/Admin/Dashboard">
+            Dashboard
+        </a>
+
+        <a asp-page="/Bookings/BookingOverview">
+            Bookinger
+        </a>
+
+        <a asp-page="/Admin/Products/GetAllProducts">
+            Produkter
+        </a>
+
+        <a asp-page="/Admin/Treatments/GetAllTreatments">
+            Behandlinger
+        </a>
+
+        <a asp-page="/Admin/Customers/GetAllCustomers">
+            Kunder
+        </a>
+
+        <a asp-page="/Admin/Employees/GetAllEmployees">
+            Medarbejdere
+        </a>
+
+        <a asp-page="/Admin/ContactMessages/GetAllMessages">
+            Kontaktbeskeder
+        </a>
+
+    </aside>
+
+    <!-- Hovedindhold -->
+    <main class="admin-content">
+
+        <h1>
+            Admin Dashboard
+        </h1>
+
+        <!-- Cards/grid med genveje -->
+        <div class="dashboard-cards">
+
+            <!-- Booking card -->
+            <div class="dashboard-card">
+
+                <h3>Bookinger</h3>
+
+                <p>
+                    Se, rediger og slet bookinger.
+                </p>
+
+                <a asp-page="/Bookings/BookingOverview">
+                    Gå til bookinger
+                </a>
+
+            </div>
+
+            <!-- Kunde card -->
+            <div class="dashboard-card">
+
+                <h3>Kunder</h3>
+
+                <p>
+                    Se og rediger kunder.
+                </p>
+
+                <a asp-page="/Admin/Customers/GetAllCustomers">
+                    Gå til kunder
+                </a>
+
+            </div>
+
+            <!-- Medarbejder card -->
+            <div class="dashboard-card">
+
+                <h3>Medarbejdere</h3>
+
+                <p>
+                    Opret og administrer medarbejdere.
+                </p>
+
+                <a asp-page="/Admin/Employees/GetAllEmployees">
+                    Gå til medarbejdere
+                </a>
+
+            </div>
+
+            <!-- Produkt card -->
+            <div class="dashboard-card">
+
+                <h3>Produkter</h3>
+
+                <p>
+                    Administrer produkter i webshoppen.
+                </p>
+
+                <a asp-page="/Admin/Products/GetAllProducts">
+                    Gå til produkter
+                </a>
+
+            </div>
+
+            <!-- Behandling card -->
+            <div class="dashboard-card">
+
+                <h3>Behandlinger</h3>
+
+                <p>
+                    Administrer behandlinger og services.
+                </p>
+
+                <a asp-page="/Admin/Treatments/GetAllTreatments">
+                    Gå til behandlinger
+                </a>
+
+            </div>
+
+            <!-- Kontaktbeskeder card -->
+            <div class="dashboard-card">
+
+                <h3>Kontaktbeskeder</h3>
+
+                <p>
+                    Læs og administrer beskeder fra kontaktformularen.
+                </p>
+
+                <a asp-page="/Admin/ContactMessages/GetAllMessages">
+                    Gå til kontaktbeskeder
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>

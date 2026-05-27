@@ -1,0 +1,89 @@
+﻿@page
+@model CitySalon.Pages.Customers.CreateCustomerModel
+
+<link rel="stylesheet" href="~/css/customer.css" />
+
+<div class="create-customer-page">
+
+    <div class="create-customer-card">
+
+        <h1 class="create-customer-title">
+            Opret kunde
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="create-customer-form">
+
+            <!-- Viser alle valideringsfejl samlet -->
+            <div asp-validation-summary="All"
+                 class="create-customer-validation">
+            </div>
+
+            <label class="create-customer-label">Navn</label>
+
+            <!-- Binder inputfeltet til Customer.Name -->
+            <input asp-for="Customer.Name"
+                   class="create-customer-input" />
+
+            <!-- Viser fejlbesked for Customer.Name -->
+            <span asp-validation-for="Customer.Name"
+                  class="create-customer-validation">
+            </span>
+
+            <label class="create-customer-label">Email</label>
+
+            <input asp-for="Customer.Email"
+                   class="create-customer-input" />
+
+            <span asp-validation-for="Customer.Email"
+                  class="create-customer-validation">
+            </span>
+
+            <label class="create-customer-label">Telefon</label>
+
+            <input asp-for="Customer.Phone"
+                   class="create-customer-input" />
+
+            <span asp-validation-for="Customer.Phone"
+                  class="create-customer-validation">
+            </span>
+
+            <label class="create-customer-label">Brugernavn</label>
+
+            <input asp-for="Customer.UserName"
+                   class="create-customer-input" />
+
+            <span asp-validation-for="Customer.UserName"
+                  class="create-customer-validation">
+            </span>
+
+            <label class="create-customer-label">Kodeord</label>
+
+            <input asp-for="Customer.Password"
+                   type="password"
+                   class="create-customer-input" />
+
+            <span asp-validation-for="Customer.Password"
+                  class="create-customer-validation">
+            </span>
+
+            <button type="submit" class="create-customer-submit">
+                Gem kunde
+            </button>
+
+        </form>
+
+        <!-- Tilbage til kundeoversigten uden at gemme -->
+        <a asp-page="/Admin/Customers/GetAllCustomers"
+           class="create-customer-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Gør client-side validation aktiv -->
+    <partial name="_ValidationScriptsPartial" />
+}

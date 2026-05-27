@@ -1,0 +1,91 @@
+﻿@page
+@model CitySalon.Pages.Treatments.EditTreatmentModel
+
+<link rel="stylesheet" href="~/css/treatment.css" asp-append-version="true" />
+
+<div class="edit-treatment-page">
+
+    <div class="edit-treatment-card">
+
+        <h1 class="edit-treatment-title">
+            Rediger behandling
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="edit-treatment-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="edit-treatment-validation">
+            </div>
+
+            <!-- Skjult TreatmentId.
+                 Brugeren skal ikke ændre id'et,
+                 men PageModel skal bruge det ved update -->
+            <input type="hidden"
+                   asp-for="Treatment.TreatmentId" />
+
+            <label class="edit-treatment-label">Behandling</label>
+
+            <!-- Binder inputfeltet til Treatment.Name -->
+            <input asp-for="Treatment.Name"
+                   class="edit-treatment-input" />
+
+            <span asp-validation-for="Treatment.Name"
+                  class="edit-treatment-validation">
+            </span>
+
+            <label class="edit-treatment-label">Varighed i minutter</label>
+
+            <!-- type=number bruges til heltal -->
+            <input asp-for="Treatment.DurationInMinutes"
+                   type="number"
+                   class="edit-treatment-input" />
+
+            <span asp-validation-for="Treatment.DurationInMinutes"
+                  class="edit-treatment-validation">
+            </span>
+
+            <label class="edit-treatment-label">Kategori</label>
+
+            <input asp-for="Treatment.Category"
+                   class="edit-treatment-input" />
+
+            <span asp-validation-for="Treatment.Category"
+                  class="edit-treatment-validation">
+            </span>
+
+            <label class="edit-treatment-label">Pris</label>
+
+            <!-- step=0.01 bruges til decimal-priser -->
+            <input asp-for="Treatment.Price"
+                   type="number"
+                   step="0.01"
+                   class="edit-treatment-input" />
+
+            <span asp-validation-for="Treatment.Price"
+                  class="edit-treatment-validation">
+            </span>
+
+            <button type="submit" class="edit-treatment-submit">
+                Gem ændringer
+            </button>
+
+        </form>
+
+        <!-- Går tilbage uden at gemme -->
+        <a asp-page="/Admin/Treatments/GetAllTreatments"
+           class="edit-treatment-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

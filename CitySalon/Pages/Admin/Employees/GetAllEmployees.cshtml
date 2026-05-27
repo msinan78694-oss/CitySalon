@@ -1,0 +1,87 @@
+﻿@page
+@model CitySalon.Pages.Admin.Employees.GetAllEmployeesModel
+@using CitySalon.Helpers
+
+<link rel="stylesheet" href="~/css/employee.css" />
+
+<div class="employee-admin-page">
+
+    <div class="employee-admin-header">
+
+        <h1>
+            Administrer medarbejdere
+        </h1>
+
+        <!-- Link til oprettelse af ny medarbejder -->
+        <a class="employee-add-btn"
+           asp-page="/Admin/Employees/CreateEmployee">
+            Tilføj medarbejder
+        </a>
+
+    </div>
+
+    <div class="employee-table-card">
+
+        <!-- Tabellen viser alle medarbejdere -->
+        <table class="employee-table">
+
+            <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>Brugernavn</th>
+                    <th>Handlinger</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- Gennemgår alle medarbejdere fra PageModel -->
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+
+                        <td>@employee.Name</td>
+
+                        <td>@employee.UserName</td>
+
+                        <td>
+
+                            <div class="employee-actions">
+
+                                <!-- Sender medarbejderens id til redigeringssiden -->
+                                <a class="employee-icon-btn employee-edit-icon"
+                                   asp-page="/Admin/Employees/EditEmployee"
+                                   asp-route-id="@employee.Id"
+                                   title="Rediger medarbejder">
+
+                                    <span>✎</span>
+
+                                </a>
+
+                                <!-- Kun admin må se slette-knappen -->
+                                @if (SessionHelper.IsAdmin(HttpContext))
+                                {
+                                    <a class="employee-icon-btn employee-delete-icon"
+                                       asp-page="/Admin/Employees/DeleteEmployee"
+                                       asp-route-id="@employee.Id"
+                                       title="Slet medarbejder">
+
+                                        <span>🗑</span>
+
+                                    </a>
+                                }
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

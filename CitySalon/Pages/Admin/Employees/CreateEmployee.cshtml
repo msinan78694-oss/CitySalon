@@ -1,0 +1,69 @@
+﻿@page
+@model CitySalon.Pages.Admin.Employees.CreateEmployeeModel
+
+<link rel="stylesheet" href="~/css/employee.css" />
+
+<div class="employee-form-page">
+
+    <div class="employee-form-card">
+
+        <h1 class="employee-form-title">
+            Tilføj medarbejder
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="employee-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <label class="employee-form-label">Navn</label>
+
+            <!-- Binder inputfeltet til Employee.Name -->
+            <input asp-for="Employee.Name"
+                   class="employee-form-input" />
+
+            <span asp-validation-for="Employee.Name"
+                  class="text-danger">
+            </span>
+
+            <label class="employee-form-label">Brugernavn</label>
+
+            <input asp-for="Employee.UserName"
+                   class="employee-form-input" />
+
+            <span asp-validation-for="Employee.UserName"
+                  class="text-danger">
+            </span>
+
+            <label class="employee-form-label">Password</label>
+
+            <!-- type=password skjuler teksten mens man skriver -->
+            <input asp-for="Employee.Password"
+                   type="password"
+                   class="employee-form-input" />
+
+            <span asp-validation-for="Employee.Password"
+                  class="text-danger">
+            </span>
+
+            <button type="submit" class="employee-submit-btn">
+                Opret
+            </button>
+
+            <!-- Tilbage uden at oprette medarbejder -->
+            <a asp-page="/Admin/Employees/GetAllEmployees"
+               class="employee-back-btn">
+                Tilbage
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,108 @@
+﻿@page
+@model CitySalon.Pages.Products.CreateProductModel
+
+<link rel="stylesheet" href="~/css/product.css" asp-append-version="true" />
+
+<div class="create-product-page">
+
+    <div class="create-product-card">
+
+        <h1 class="create-product-title">
+            Opret produkt
+        </h1>
+
+        <!-- Formularen sender data til OnPost i PageModel -->
+        <form method="post" class="create-product-form">
+
+            <!-- Viser alle validation-fejl samlet -->
+            <div asp-validation-summary="All"
+                 class="create-product-validation">
+            </div>
+
+            <label class="create-product-label">Navn</label>
+
+            <!-- Binder inputfeltet til Product.Name -->
+            <input asp-for="Product.Name"
+                   class="create-product-input" />
+
+            <span asp-validation-for="Product.Name"
+                  class="create-product-validation">
+            </span>
+
+            <label class="create-product-label">Pris</label>
+
+            <!-- type=number bruges til tal/decimaler -->
+            <input asp-for="Product.Price"
+                   type="number"
+                   step="0.01"
+                   class="create-product-input" />
+
+            <span asp-validation-for="Product.Price"
+                  class="create-product-validation">
+            </span>
+
+            <label class="create-product-label">Type</label>
+
+            <input asp-for="Product.Type"
+                   class="create-product-input" />
+
+            <span asp-validation-for="Product.Type"
+                  class="create-product-validation">
+            </span>
+
+            <label class="create-product-label">Størrelse</label>
+
+            <input asp-for="Product.Size"
+                   class="create-product-input" />
+
+            <span asp-validation-for="Product.Size"
+                  class="create-product-validation">
+            </span>
+
+            <label class="create-product-label">Brand</label>
+
+            <input asp-for="Product.Brand"
+                   class="create-product-input" />
+
+            <span asp-validation-for="Product.Brand"
+                  class="create-product-validation">
+            </span>
+
+            <label class="create-product-label">Beskrivelse</label>
+
+            <!-- textarea bruges til længere tekst -->
+            <textarea asp-for="Product.Description"
+                      class="create-product-textarea">
+            </textarea>
+
+            <span asp-validation-for="Product.Description"
+                  class="create-product-validation">
+            </span>
+
+            <label class="create-product-label">Billede URL</label>
+
+            <input asp-for="Product.ImageUrl"
+                   class="create-product-input" />
+
+            <button type="submit" class="create-product-submit">
+                Gem produkt
+            </button>
+
+        </form>
+
+        <!-- Tilbage uden at gemme -->
+        <a asp-page="GetAllProducts"
+           class="create-product-back">
+            Tilbage
+        </a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Aktiverer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

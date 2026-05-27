@@ -1,0 +1,253 @@
+﻿@page
+@model CitySalon.Pages.Bookings.MyBookingsModel
+
+<link rel="stylesheet"
+      href="~/css/booking.css"
+      asp-append-version="true" />
+
+<div class="my-bookings-page">
+
+    <div class="my-bookings-header">
+
+        <div>
+
+            <h1 class="my-bookings-title">
+                Mine bookinger
+            </h1>
+
+            <p class="my-bookings-subtitle">
+                Se dine kommende tider og tidligere aftaler.
+            </p>
+
+        </div>
+
+        <div class="my-bookings-header-actions">
+
+            <!-- Link til oprettelse af ny booking -->
+            <a asp-page="/Bookings/CreateBooking"
+               class="my-bookings-add-button">
+
+                Book ny tid
+
+            </a>
+
+            <!-- Viser/skjuler tidligere bookinger -->
+            @if (Model.ShowPastBookings)
+            {
+                <a asp-page="/Bookings/MyBookings"
+                   class="my-bookings-history-button">
+
+                    Skjul tidligere bookinger
+
+                </a>
+            }
+            else
+            {
+                <!-- asp-route sender ShowPastBookings=true i URL'en -->
+                <a asp-page="/Bookings/MyBookings"
+                   asp-route-ShowPastBookings="true"
+                   class="my-bookings-history-button">
+
+                    Tidligere bookinger
+
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+    <!-- Overskrift for kommende bookinger -->
+    <h2 class="my-bookings-section-title">
+        Kommende tider
+    </h2>
+
+    <!-- Hvis der ikke findes kommende bookinger -->
+    @if (!Model.UpcomingBookings.Any())
+    {
+        <div class="my-bookings-empty">
+
+            Du har ingen kommende bookinger.
+
+        </div>
+    }
+    else
+    {
+        <div class="my-bookings-table-card">
+
+            <table class="my-bookings-table">
+
+                <thead>
+                    <tr>
+                        <th>Kunde</th>
+                        <th>Behandling</th>
+                        <th>Medarbejder</th>
+                        <th>Dato</th>
+                        <th>Tid</th>
+                        <th>Status</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <!-- Gennemgår alle kommende bookinger -->
+                    @foreach (var booking in Model.UpcomingBookings)
+                    {
+                        <tr>
+
+                            <!-- ?. bruges for at undgå null-fejl -->
+                            <td>@booking.Customer?.Name</td>
+
+                            <td>@booking.Treatment?.Name</td>
+
+                            <td>@booking.Employee?.Name</td>
+
+                            <!-- Formatterer dato -->
+                            <td>
+                                @booking.StartTime.ToString("dd-MM-yyyy")
+                            </td>
+
+                            <!-- Formatterer tidspunkt -->
+                            <td>
+                                @booking.StartTime.ToString("HH:mm")
+                                -
+                                @booking.EndTime.ToString("HH:mm")
+                            </td>
+
+                            <td>
+
+                                <!-- Dynamisk CSS-klasse ud fra status -->
+                                <span class="my-bookings-status @GetStatusClass(booking.Status)">
+
+                                    <!-- Oversætter status til dansk -->
+                                    @GetStatusText(booking.Status)
+
+                                </span>
+
+                            </td>
+
+                            <td class="my-bookings-note">
+                                @booking.Note
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+    <!-- Tidligere bookinger vises kun hvis brugeren har valgt det -->
+    @if (Model.ShowPastBookings)
+    {
+        <h2 class="my-bookings-section-title past-title">
+
+            Tidligere bookinger
+
+        </h2>
+
+        <!-- Hvis der ingen tidligere bookinger findes -->
+        @if (!Model.PastBookings.Any())
+        {
+            <div class="my-bookings-empty">
+
+                Du har ingen tidligere bookinger.
+
+            </div>
+        }
+        else
+        {
+            <div class="my-bookings-table-card past-bookings-card">
+
+                <table class="my-bookings-table past-bookings-table">
+
+                    <thead>
+                        <tr>
+                            <th>Kunde</th>
+                            <th>Behandling</th>
+                            <th>Medarbejder</th>
+                            <th>Dato</th>
+                            <th>Tid</th>
+                            <th>Status</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- Gennemgår tidligere bookinger -->
+                        @foreach (var booking in Model.PastBookings)
+                        {
+                            <tr>
+
+                                <td>@booking.Customer?.Name</td>
+
+                                <td>@booking.Treatment?.Name</td>
+
+                                <td>@booking.Employee?.Name</td>
+
+                                <td>
+                                    @booking.StartTime.ToString("dd-MM-yyyy")
+                                </td>
+
+                                <td>
+                                    @booking.StartTime.ToString("HH:mm")
+                                    -
+                                    @booking.EndTime.ToString("HH:mm")
+                                </td>
+
+                                <td>
+
+                                    <span class="my-bookings-status @GetStatusClass(booking.Status)">
+
+                                        @GetStatusText(booking.Status)
+
+                                    </span>
+
+                                </td>
+
+                                <td class="my-bookings-note">
+                                    @booking.Note
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+    }
+
+</div>
+
+@functions {
+
+    // Oversætter status til dansk tekst
+    public string GetStatusText(string status)
+    {
+        if (status == "Pending") return "Afventer";
+        if (status == "Confirmed") return "Bekræftet";
+        if (status == "Cancelled") return "Annulleret";
+        if (status == "Completed") return "Færdig";
+
+        return status;
+    }
+
+    // Returnerer CSS-klasse ud fra status
+    public string GetStatusClass(string status)
+    {
+        if (status == "Pending") return "status-pending";
+        if (status == "Confirmed") return "status-confirmed";
+        if (status == "Cancelled") return "status-cancelled";
+        if (status == "Completed") return "status-completed";
+
+        return "";
+    }
+}

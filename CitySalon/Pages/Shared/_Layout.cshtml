@@ -1,0 +1,143 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - CitySalon</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/booking.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+</head>
+
+<body>
+    @{
+        var role = Context.Session.GetString("Role");
+        var userName = Context.Session.GetString("UserName");
+    }
+
+    <header>
+        <nav class="city-navbar">
+
+            <div class="nav-left">
+                <a asp-page="/Index">Forside</a>
+                <a asp-page="/ContactUs">Kontakt Os</a>
+                <a asp-page="/Treatments/GetAllTreatments">Behandlinger</a>
+            </div>
+
+            <div class="nav-brand">
+                <a asp-page="/Index">
+                    <img src="~/images/city.png"
+                         alt="CitySalon Logo"
+                         class="navbar-logo" />
+                </a>
+            </div>
+
+            <div class="nav-right">
+                <a asp-page="/Bookings/CreateBooking">Booking</a>
+                <a asp-page="/Products/GetAllProducts">Shop</a>
+
+                @if (role == "Admin")
+                {
+                    <a asp-page="/Admin/Dashboard">Dashboard</a>
+                }
+                else if (role == "Employee")
+                {
+                    <a asp-page="/Employee/Dashboard">Dashboard</a>
+                }
+                else if (role == "Customer")
+                {
+                    <a asp-page="/Customers/Dashboard">Profil</a>
+                }
+
+                @if (userName != null)
+                {
+                    <a asp-page="/Login/LogOutPage">Logout</a>
+                }
+                else
+                {
+                    <a asp-page="/Login/LogInPage">Login</a>
+                }
+            </div>
+
+        </nav>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="modern-footer">
+
+        <div class="footer-container">
+
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="~/images/city.png"
+                         alt="CitySalon Logo" />
+                </div>
+
+                <div class="footer-line"></div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Adresse</h3>
+
+                <div class="footer-line"></div>
+
+                <p>Jyllingecentret 37</p>
+                <p>4040 Jyllinge</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Kontakt</h3>
+
+                <div class="footer-line"></div>
+
+                <p>
+                    <a href="tel:+4553434153">
+                        +45 53 43 41 53
+                    </a>
+                </p>
+
+                <p>
+                    <a href="mailto:info@citysalon.dk">
+                        info@citysalon.dk
+                    </a>
+                </p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Åbningstider</h3>
+
+                <div class="footer-line"></div>
+
+                <p>Mandag - Fredag: 09:00 - 18:00</p>
+                <p>Lørdag: 09:00 - 14:00</p>
+                <p>Søndag: Lukket</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 CitySalon - Alle rettigheder forbeholdt
+        </div>
+
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

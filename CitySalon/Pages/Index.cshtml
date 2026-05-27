@@ -1,0 +1,138 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<link rel="stylesheet" href="~/css/home.css" />
+
+<section class="hero-section">
+
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="back-video">
+            <source src="~/videos/barbervideo2.mov" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <h1>
+            Mere end bare en <span>klipning</span>
+        </h1>
+        <p>
+            Professionelle behandlinger, moderne stil og en oplevelse
+            der matcher dit look.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a asp-page="/Bookings/CreateBooking"
+               class="hero-btn">
+
+                Book tid
+
+            </a>
+
+            <a asp-page="/Treatments/GetAllTreatments"
+               class="hero-btn hero-btn-secondary">
+
+                Se behandlinger
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="front-sections">
+
+    <!-- SECTION 1 -->
+
+    <div class="front-split-section">
+
+        <div class="front-split-image">
+            <img src="~/images/service.jpg" alt="Behandlinger" />
+        </div>
+
+        <div class="front-split-content">
+
+            <h2>Professionelle behandlinger</h2>
+
+            <p>
+                Vi tilbyder moderne fades, hårklip, skægtrimning og andre
+                behandlinger udført af dygtige medarbejdere i moderne omgivelser.
+            </p>
+
+            <a asp-page="/Admin/Treatments/GetAllTreatments"
+               class="front-split-button">
+
+                Se behandlinger
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- SECTION 2 -->
+
+    <div class="front-split-section reverse-section">
+
+        <div class="front-split-image">
+            <img src="~/images/booking.jpg" alt="Bookingsystem" />
+        </div>
+
+        <div class="front-split-content">
+
+            <h2>Moderne bookingsystem</h2>
+
+            <p>
+                Book hurtigt og nemt online. Vores bookingsystem giver dig
+                fuldt overblik over dine aftaler og gør processen enkel.
+            </p>
+
+            <a asp-page="/Bookings/CreateBooking"
+               class="front-split-button">
+
+                Book tid
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- SECTION 3 -->
+
+    <div class="front-split-section">
+
+        <div class="front-split-image">
+            <img src="~/images/shop.jpg" alt="Shop produkter" />
+        </div>
+
+        <div class="front-split-content">
+
+            <h2>Produkter til alle behov</h2>
+
+            <p>
+                I vores shop finder du professionelle produkter til hår,
+                styling og pleje, så du kan opnå salonfølelsen hjemme.
+            </p>
+
+            <a asp-page="/Products/GetAllProducts"
+               class="front-split-button">
+
+                Gå til shop
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

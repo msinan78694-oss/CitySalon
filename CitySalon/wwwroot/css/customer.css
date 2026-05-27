@@ -1,0 +1,374 @@
+﻿body {
+    background: #f4efe8;
+    font-family: Arial, sans-serif;
+}
+
+/* ADMIN CUSTOMER LIST */
+
+.admin-table-page {
+    min-height: calc(100vh - 85px);
+    padding: 48px;
+    background: #f4efe8;
+}
+
+.admin-table-header,
+.admin-search-form,
+.admin-table-card {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-table-header {
+    margin-bottom: 26px;
+}
+
+    .admin-table-header h1 {
+        margin: 0;
+        color: #2b2b2b;
+        font-size: 38px;
+        font-weight: 500;
+    }
+
+.admin-search-form {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .admin-search-form input {
+        width: 430px;
+        height: 46px;
+        padding: 0 14px;
+        border: 1px solid #d8c8b8;
+        border-radius: 10px;
+        background: white;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+        .admin-search-form input:focus {
+            outline: none;
+            border-color: #8b5e34;
+            box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.15);
+        }
+
+    .admin-search-form button,
+    .admin-search-form a {
+        height: 46px;
+        padding: 0 18px;
+        border: none;
+        border-radius: 10px;
+        background: #8b5e34;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+        .admin-search-form button:hover,
+        .admin-add-btn:hover {
+            background: #6f4728;
+            color: white;
+        }
+
+.admin-clear-btn {
+    background: #2b2b2b !important;
+}
+
+    .admin-clear-btn:hover {
+        background: #111 !important;
+        color: white;
+    }
+
+.admin-table-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+    .admin-table th {
+        background: #111;
+        color: #c89b5f;
+        padding: 18px;
+        text-align: left;
+        font-size: 15px;
+    }
+
+    .admin-table td {
+        padding: 18px;
+        border-bottom: 1px solid #eee;
+        color: #2b2b2b;
+        vertical-align: middle;
+        word-break: break-word;
+    }
+
+    .admin-table tbody tr:hover {
+        background: #f4efe8;
+    }
+
+/* ACTION ICONS */
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 19px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.admin-edit-icon {
+    background: #f1e5d3;
+    color: #7a5526;
+}
+
+    .admin-edit-icon:hover {
+        background: #dcc3a2;
+        color: #7a5526;
+    }
+
+.admin-delete-icon {
+    background: #f8dddd;
+    color: #a33a3a;
+}
+
+    .admin-delete-icon:hover {
+        background: #e9bcbc;
+        color: #a33a3a;
+    }
+
+.admin-icon-btn span {
+    line-height: 1;
+}
+
+/* CUSTOMER FORM PAGES */
+
+.create-customer-page,
+.edit-customer-page,
+.delete-customer-page {
+    min-height: calc(100vh - 120px);
+    padding: 120px 20px 60px;
+    background: #f4efe8;
+    display: flex;
+    justify-content: center;
+}
+
+.create-customer-card,
+.edit-customer-card,
+.delete-customer-card {
+    width: 100%;
+    max-width: 650px;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.create-customer-title,
+.edit-customer-title,
+.delete-customer-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    margin: 0 0 30px;
+    color: #2b2b2b;
+}
+
+.create-customer-form,
+.edit-customer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.create-customer-label,
+.edit-customer-label {
+    font-weight: bold;
+    color: #2b2b2b;
+}
+
+.create-customer-input,
+.edit-customer-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+    .create-customer-input:focus,
+    .edit-customer-input:focus {
+        outline: none;
+        border-color: #8b5e34;
+        box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.18);
+    }
+
+.create-customer-validation,
+.edit-customer-validation,
+.delete-customer-validation {
+    color: #c0392b;
+    font-size: 14px;
+}
+
+/* BUTTONS */
+
+.create-customer-submit,
+.create-customer-back,
+.edit-customer-submit,
+.edit-customer-back,
+.delete-customer-submit,
+.delete-customer-back {
+    width: 100%;
+    height: 56px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: 0.2s;
+    box-sizing: border-box;
+}
+
+.create-customer-submit,
+.edit-customer-submit,
+.delete-customer-submit {
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.create-customer-submit,
+.edit-customer-submit {
+    background: #8b5e34;
+}
+
+    .create-customer-submit:hover,
+    .edit-customer-submit:hover {
+        background: #6f4727;
+    }
+
+.delete-customer-submit {
+    background: #a33a3a;
+}
+
+    .delete-customer-submit:hover {
+        background: #7d2929;
+    }
+
+.create-customer-back,
+.edit-customer-back,
+.delete-customer-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2b2b2b;
+    color: white;
+    text-decoration: none;
+}
+
+    .create-customer-back:hover,
+    .edit-customer-back:hover,
+    .delete-customer-back:hover {
+        background: #111;
+        color: white;
+    }
+
+/* DELETE CUSTOMER */
+
+.delete-customer-warning {
+    text-align: center;
+    font-size: 18px;
+    color: #a33a3a;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.delete-customer-info {
+    background: #f4efe8;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+    .delete-customer-info p {
+        margin: 8px 0;
+        color: #2b2b2b;
+        font-size: 16px;
+    }
+
+.delete-customer-form {
+    margin: 0;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .admin-table-page {
+        padding: 28px 15px;
+    }
+
+    .admin-table-header h1 {
+        font-size: 30px;
+    }
+
+    .admin-search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .admin-search-form input,
+        .admin-search-form button,
+        .admin-search-form a {
+            width: 100%;
+        }
+
+    .admin-table-card {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        min-width: 850px;
+    }
+
+    .create-customer-page,
+    .edit-customer-page,
+    .delete-customer-page {
+        padding: 100px 15px 50px;
+    }
+
+    .create-customer-card,
+    .edit-customer-card,
+    .delete-customer-card {
+        padding: 25px;
+    }
+
+    .create-customer-title,
+    .edit-customer-title,
+    .delete-customer-title {
+        font-size: 32px;
+    }
+}

@@ -1,0 +1,89 @@
+﻿@page
+@model CitySalon.Pages.Login.LogInPageModel
+
+<link rel="stylesheet"
+      href="~/css/login.css"
+      asp-append-version="true" />
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <!-- Side titel -->
+        <h1 class="login-title">
+            Login
+        </h1>
+
+        <!-- Kort beskrivelse -->
+        <p class="login-subtitle">
+            Log ind for at fortsætte
+        </p>
+
+        <!-- Formular der sender data med POST -->
+        <form method="post" class="login-form">
+
+            <!-- Viser alle validation errors -->
+            <div asp-validation-summary="All"
+                 class="text-danger">
+            </div>
+
+            <!-- Brugernavn -->
+            <label>Brugernavn</label>
+
+            <input asp-for="UserName" />
+
+            <!-- Fejlbesked for UserName -->
+            <span asp-validation-for="UserName"
+                  class="text-danger">
+            </span>
+
+            <!-- Password -->
+            <label>Kodeord</label>
+
+            <input asp-for="Password"
+                   type="password" />
+
+            <!-- Fejlbesked for Password -->
+            <span asp-validation-for="Password"
+                  class="text-danger">
+            </span>
+
+            <!-- Viser login-fejl -->
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="login-error">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+            <!-- Login knap -->
+            <button type="submit"
+                    class="login-button">
+
+                Login
+
+            </button>
+
+            <!-- Link til registrering -->
+            <div class="login-register-text">
+
+                Har du ikke en konto?
+
+                <a asp-page="/Register/RegisterPage">
+                    Opret konto
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <!-- Tilføjer client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+
+}

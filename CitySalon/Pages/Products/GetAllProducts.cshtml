@@ -1,0 +1,106 @@
+﻿@page
+@model CitySalon.Pages.Products.GetAllProductsModel
+
+<link rel="stylesheet" href="~/css/product.css" />
+
+<div class="products-page">
+
+    <!-- Hero-billede øverst på siden -->
+    <section class="shop-hero-image-only">
+        <img src="~/images/heroprodukt.png" alt="Produkter" />
+    </section>
+
+    <form method="post"
+          asp-page-handler="NameSearch"
+          class="product-search-form">
+
+        <input asp-for="SearchString"
+               class="product-search-input"
+               placeholder="Søg efter produktnavn" />
+
+        <button type="submit"
+                class="product-search-button">
+            Søg
+        </button>
+
+    </form>
+    <!-- Gennemgår alle produkttyper -->
+    @foreach (var type in Model.ProductTypes)
+    {
+        <section class="product-category-section">
+
+            <div class="category-header">
+
+                <div>
+
+                    <!-- Viser navnet på kategorien -->
+                    <h2 class="product-category-title">
+                        @type
+                    </h2>
+
+                    <div class="category-line"></div>
+
+                </div>
+
+            </div>
+
+            <div class="product-grid">
+
+                <!-- Filtrerer produkter så kun produkter
+                     med den aktuelle type bliver vist -->
+                @foreach (var product in Model.Products.Where(p => p.Type == type))
+                {
+                    <div class="product-card">
+
+                        <!-- Klik på billede sender brugeren til ProductDetail -->
+                        <a asp-page="ProductDetail"
+                           asp-route-id="@product.ProductId"
+                           class="product-image-link">
+
+                            <img src="~/images/@product.ImageUrl"
+                                 class="product-image"
+                                 alt="@product.Name" />
+
+                        </a>
+
+                        <div class="product-content">
+
+                            <!-- Produkttype -->
+                            <p class="product-type">
+                                @product.Type
+                            </p>
+
+                            <!-- Produktnavn -->
+                            <h3 class="product-name">
+                                @product.Name
+                            </h3>
+
+                            <div class="product-bottom">
+
+                                <!-- Produktpris -->
+                                <p class="product-price">
+                                    @product.Price kr.
+                                </p>
+
+                                <!-- Knap til detaljer -->
+                                <a asp-page="ProductDetail"
+                                   asp-route-id="@product.ProductId"
+                                   class="product-detail-button-small">
+
+                                    Se mere
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </section>
+    }
+
+</div>
